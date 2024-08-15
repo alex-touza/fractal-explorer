@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    button {
+        @apply p-2 hover:bg-primary-800 transition active:bg-primary-700 rounded-md font-sans;
+    }
+
+}
+
+@layer components {
+    .floating-box {
+        @apply m-4 sm:m-8 rounded-md border-2 border-primary-200 bg-primary-900 bg-opacity-60 backdrop-blur text-primary-200;
+    }
+}

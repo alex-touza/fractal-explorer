@@ -1,0 +1,24 @@
+---
+import type { FractalView } from '../data/types';
+
+interface Props {
+	fractal: FractalView;
+}
+const { fractal } = Astro.props;
+---
+
+<a
+	href={fractal?.id ? `/fractals/${fractal.id}` : '#'}
+	class="group flex w-full cursor-pointer flex-col rounded border-2 bg-primary-800 shadow-2xl transition hover:bg-primary-600 hover:shadow-sm active:bg-primary-900"
+>
+	<div class="h-48 w-full flex-none overflow-hidden border-b-2 shadow-inner">
+		<img
+			class="h-full w-full object-cover transition group-hover:scale-105 group-hover:saturate-[.60]"
+			src={fractal.thumbnailPath}
+		/>
+	</div>
+	<div class="flex min-h-0 grow flex-col overflow-hidden p-2">
+		<h3 class="text-xl font-bold text-primary-100">{fractal.name}</h3>
+		<p class="hidden text-primary-200 xs:block">{fractal.descr}</p>
+	</div>
+</a>

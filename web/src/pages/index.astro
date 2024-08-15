@@ -1,0 +1,25 @@
+---
+import FractalCard from '@components/FractalCard.astro';
+import { fractals } from '@data/fractals';
+import Base from '@layouts/Base.astro';
+---
+
+<Base>
+	<div class="h-screen">
+		<div class="flex flex-col space-y-3 p-3">
+			<div
+				class="rounded-md border-2 border-neutral-200 bg-primary-900 p-4 shadow-md"
+			>
+				<h1 class="text-5xl text-primary-100">Explorador de fractals</h1>
+				<p class="text-primary-200">
+					Una immersió en l'univers matemàtic dels fractals.
+				</p>
+			</div>
+			<div
+				class="grid grow gap-3 rounded-md border-2 border-neutral-200 bg-primary-900 p-4 shadow-md xs:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
+			>
+				{fractals.map((fractal) => <FractalCard fractal={fractal} />)}
+			</div>
+		</div>
+	</div>
+</Base>
