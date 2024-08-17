@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/fractal-explorer.iml" filepath="$PROJECT_DIR$/fractal-explorer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/paper.iml" filepath="$PROJECT_DIR$/paper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/web.iml" filepath="$PROJECT_DIR$/web.iml" />
     </modules>
   </component>
 </project>
