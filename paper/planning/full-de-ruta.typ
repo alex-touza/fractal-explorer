@@ -1,4 +1,4 @@
-#set text(font: "New Computer Modern",lang: "ca")
+#set text(font: "New Computer Modern", lang: "ca")
 
 = Estructura detallada del Treball de Recerca
 
