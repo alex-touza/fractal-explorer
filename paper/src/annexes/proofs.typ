@@ -7,8 +7,7 @@ Per reduir la llargada del cos principal del treball, es presenten aquí demostr
 
 
 #explanation[de @def_mesura_hausdorff][
-    
-  La idea d'aquesta mesura és considerar tots els recobriments-$delta$ (@recobriment-delta) possibles del conjunt $A$ que es vol mesurar: 
+  La idea d'aquesta mesura és considerar tots els  recobriments-$delta$ (@recobriment-delta) possibles del conjunt $A$ que es vol mesurar: 
   $
   {{E_i : abs(E_i) <= delta } : A subset.eq union.big_i E_i }, delta in (0, +infinity)
   $

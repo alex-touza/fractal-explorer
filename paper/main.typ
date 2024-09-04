@@ -16,6 +16,7 @@
 #set par(leading: 1.15em, justify: true, linebreaks: "optimized")
 #show par: set block(below: 2em)
 
+#show figure.caption: set text(size: 10pt)
 
 #{
   set par(leading: 0.5em)
@@ -53,8 +54,6 @@ Als contribuïdors del sistema de composició tipogràfica Typst, utilitzat en a
 
 Als contribuïdors del fòrum Stack Exchange Mathematics, que han proveït materials d'ajuda i explicacions que han resultat imprescindibles.
 
-A totes les persones que han cultivat la meva passió per les matemàtiques i la informàtica.
-
 
 
 
@@ -87,7 +86,7 @@ A totes les persones que han cultivat la meva passió per les matemàtiques i la
 
   let num = counter(heading).at(it.location()).first()
 
-  [Capítol #num.]
+  [Capítol #num]
   
   it
 
@@ -101,19 +100,11 @@ A totes les persones que han cultivat la meva passió per les matemàtiques i la
 
 
 #include "src/chapters/1_introduccio_a_la_geometria_fractal.typ"
+#pagebreak()
 #include "src/chapters/2_estudi_matemàtic_dels_objectes_fractals.typ"
+#pagebreak()
+#include "src/chapters/3_estudi_computacional_dels_objectes_fractals.typ"
 
-= Estudi computacional dels fractals
-
-Explicació de la part pràctica del projecte.
-
-== Anàlisi algorísmic
-
-Complexitat temporal dels algoritmes per generar cada fractal.
-
-== Entorn de generació
-
-Explicació de com aplicar els algoritmes. Amb quin llenguatge, en quin entorn. També mostrar la interfície del programa.
 
 
 = Conclusió

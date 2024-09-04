@@ -3,40 +3,55 @@
 #import "../shortcuts.typ": *
 #import "@preview/cetz:0.2.2": canvas, draw
 
+
 = Introducció a la geometria fractal
 
+En aquest primer capítol, s'exposarà el concepte de fractal. Es discutirà el seu origen i les característiques associades a ell, així com la seva utilitat en altres àrees.
+/*
 En aquest primer capítol, s'exposarà el concepte de _fractal_ i es definirà de forma matemàtica, explorant els diferents significats que s'han associat a aquest terme al llarg de les dècades. Després, es definiran les diferents _dimensions_ que es poden calcular d'aquest objecte matemàtic.
+*/
 
 
-#def[Diàmetre][
-  Donat un conjunt $E = {x_1, x_2, ..., x_n}$, definim el seu _diàmetre_, denotat amb $abs(E)$, com la distància més gran possible entre qualsevol parella de punts. Simbòlicament, $abs(E) = sup { d(x_i, x_j) : x_i,x_j in E}$.
+== La geometria fractal a la natura
+
+
+La geometria fractal és un dels camps de les matemàtiques que més ha despertat la curiositat del públic per la seva bellesa, així com per la seva omnipresència a la natura. Es solen associar les fractals amb formes com flocs de neu (@floc_de_neu) i cols autosimilars (@romanesco).
+
+#grid(columns: (1fr, 1fr), gutter: 2em)[
+  #figure(caption: [Floc de neu. _Domini públic._])[
+    #image("../images/floc de neu.png", height: 150pt)
+  ] <floc_de_neu>
+][
+  #figure(caption: [
+    Patrons fractals en un cristall congelat. _By Schnobby - Own work, CC BY-SA 3.0, \<https://commons.wikimedia.org/w/index.php?curid=19055302>_
+  ])[
+    #image("../images/cristall congelat (Schnobby).png", height: 150pt)
+  ] <cristall_congelat>
+][
+  #figure(
+    caption: [
+      Un romanesco, un tipus de col que presenta autosimilitud. _Ioangogo - Own work, CC BY-SA 4.0, \<https://commons.wikimedia.org/w/index.php?curid=39553243>_
+    ]
+  )[
+    #image("../images/romanesco (loangogo).png", width: 200pt, height: 150pt)
+  ] <romanesco>
+][
+  #figure(caption: [
+    Dendrita d'òxid de manganès formada en pedra calcària. Escala en mil·límetres. _Mark A. Wilson (Department of Geology, The College of Wooster)._
+  ])[
+    #image("../images/dendrites (Wilson).png", width: 200pt, height: 150pt)
+  ] <dendrita>
 ]
 
-#def[Recobriment-$delta$][
-  Donat un conjunt $A$, una cobertura-$delta$ és una col·lecció comptable ${ E_i }$ de conjunts amb diàmetres $abs(E_i) <= delta$ tals que el conjunt $A$ conté la unió de tots els conjunts de la col·lecció. Simbòlicament#footnote[La definició real d'un recobriment fa ús de _conjunts indexats_ però s'ha optat per usar una definició simplificada.]: $ C_delta (A) = {E_i : abs(E_i) <= delta}, A subset.eq union.big_i E_i $
-] <recobriment-delta>
-
-#def[Funció gamma][
-  La funció gamma $Gamma(z)$ està definida als nombres complexos amb part real positiva i és una extensió del concepte de factorial, definit només a nombres enters positius, a aquest conjunt superior. La funció es defineix així:
-  
-  $
-  Gamma(z) = integral^infinity_0 t^(z-1) e^(-t) dif t
-  $
-  
-  Similarment al factorial, es compleix que, per a tot $n$ enter positiu, $Gamma(n) = (n-1)!$, i per a tot $z$ complex, $Gamma(z+1) = z Gamma(z)$.
-] <funcio-gamma>
-
-
-== La geometria fractal i les seves aplicacions
-
-
-La geometria fractal és un dels camps de les matemàtiques que més ha despertat la curiositat del públic per la seva autèntica bellesa. Aquestes formes presenten un detall increïble a partir d'una definició realment simple.
-
 Benoît Mandelbrot va
+
+És incorrecte, tanmateix, pensar que tota la g
 
 Això no obstant, els fractals també són una bona representació de la realitat. Si bé la geometria euclidiana, a la qual estem acostumats, acaba sent llisa quan ens hi apropem prou, això no representa amb precisió el món natural. La geometria fractal té un enfocament diferent i considera que les formes no són llises, sinó infinitament rugoses.
 
 Per aquest motiu,
+
+La geometria fractal és un d'aquells conceptes matemàtics que, quan hom els coneix, els observa a tot
 
 
 == Definició de fractal
@@ -50,10 +65,10 @@ La definició d'un fractal no és tan senzilla com hom podria pensar. Hi ha dive
 
 - *Definició simple.* Les fractals tenen definicions molt senzilles. Això, considerant les propietats anteriors, és sorprenent. Alguns fractals s'obtenen amb un algoritme recursiu, de manera que successives iteracions d'aquest porten a una aproximació més exacta de la fractal.
 
-  Aquesta propietat resulta, a la vegada, útil i
+  Aquesta característica resulta, a la vegada, útil i problemàtica. És útil perquè facilita molt la seva representació ---són increïblement senzills de generar amb un llenguatge de programació---, però és problemàtica perquè aleshores és més complicat estudiar les
 
 - *Dificultats en la mesura.* Sovint resulta inútil realitzar mesures comunes com la llargada o l'àrea en els objectes fractals, ja que aquestes són o bé impossibles de fer o resulten en valors nuls o infinits.
 
-Properament veurem, tanmateix, que no tots els fractals comparteixen totes aquestes característiques. Per aquest motiu, no existeix una sola definició de fractal; aquest terme avui dia s'utilitza més àmpliament per designar qualsevol forma geomètrica que presenti alguna de les propietats anteriors, especialment l'autosimilitud i l'estructura detallada minúscula.
+Properament veurem, tanmateix, que no tots els fractals comparteixen totes aquestes característiques. Per aquest motiu, no existeix una sola definició de fractal; aquest terme s'utilitza més àmpliament per designar qualsevol forma geomètrica que presenti alguna de les propietats anteriors, especialment l'autosimilitud i l'estructura detallada minúscula.
 
-
+I aquesta, de fet, era la intenció de Mandelbrot quan va introduir el terme. Segons ell, l'obsessió pel formalisme dels matemàtics no eñls

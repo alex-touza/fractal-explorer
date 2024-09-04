@@ -6,6 +6,14 @@ mandelbrot:
   publisher: Tusquets Editores
   edition: 3ª edición
 
+mandelbrot-objects:
+  type: Book
+  title: Los objetos fractales. Forma, azar y dimensión
+  author: Mandelbrot, Benoît B.
+  date: 1987
+  publisher: Tusquets Editores
+  edition: 7ª edición
+
 mandelbrot-britain:
   type: Article
   author: Mandelbrot, Benoît B.
@@ -13,6 +21,13 @@ mandelbrot-britain:
   url: "https://users.math.yale.edu/users/mandelbrot/web_pdfs/howLongIsTheCoastOfBritain.pdf"
   publisher: Science
 
+falconer:
+  type: Book
+  title: "Fractal Geometry: Mathematical Foundations and Application"
+  author: Falconer, K.
+  date: 2003
+  publisher: Wiley
+  
 falconer-properties:
   type: Book
   title: "Fractal Geometry: Mathematical Foundations and Application"
@@ -88,7 +103,7 @@ fractal-geometry:
 
 numberphile-mandelbrot-sparks:
   type: Video
-  title: What's so special about the Mandelbrot Set?
+  title: "What's so special about the Mandelbrot Set?"
   author: Numberphile
   url: https://www.youtube.com/watch?v=FFftmWSzgmk
   date: 2019-04-18

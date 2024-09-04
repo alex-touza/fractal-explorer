@@ -3,7 +3,26 @@
 #import "../shortcuts.typ": *
 #import "@preview/cetz:0.2.2": canvas, draw
 
-= Estudi matemàtic dels fractals
+= Estudi matemàtic dels objectes fractals
+
+#def[Diàmetre][
+  Donat un conjunt $E = {x_1, x_2, ..., x_n}$, definim el seu _diàmetre_, denotat amb $abs(E)$, com la distància més gran possible entre qualsevol parella de punts. Simbòlicament, $abs(E) = sup { d(x_i, x_j) : x_i,x_j in E}$.
+]
+
+#def[Recobriment-$delta$][
+  Donat un conjunt $A$, una cobertura-$delta$ és una col·lecció comptable ${ E_i }$ de conjunts amb diàmetres $abs(E_i) <= delta$ tals que el conjunt $A$ conté la unió de tots els conjunts de la col·lecció. Simbòlicament#footnote[La definició real d'un recobriment fa ús de _conjunts indexats_ però s'ha optat per usar una definició simplificada.]: $ C_delta (A) = {E_i : abs(E_i) <= delta}, A subset.eq union.big_i E_i $
+] <recobriment-delta>
+
+#def[Funció gamma][
+  La funció gamma $Gamma(z)$ està definida als nombres complexos amb part real positiva i és una extensió del concepte de factorial, definit només a nombres enters positius, a aquest conjunt superior. La funció es defineix així:
+  
+  $
+  Gamma(z) = integral^infinity_0 t^(z-1) e^(-t) dif t
+  $
+  
+  Es compleix que, per a tot $n$ enter positiu, $Gamma(n) = (n-1)!$, i, similarment al factorial, per a tot $z$ complex, $Gamma(z+1) = z Gamma(z)$.
+] <funcio-gamma>
+
 == Dimensió fractal
 El concepte de dimensió, en matemàtiques avançades, té molts significats; no es limita només al nombre d'eixos per representar una forma geomètrica a l'espai euclidià. Específicament, aquesta mesura s'anomena _dimensió topològica_.
 
@@ -56,7 +75,7 @@ canvas(length: 3cm, {
 La mesura de Hausdorff ve motivada per calcular la _llargada_ (és clar, de forma genèrica per a qualsevol dimensió) de qualsevol subconjunt d'un espai mètric, evitant els problemes que causa la mesura de Lebesgue.
 
 #def[Mesura de Hausdorff][
-  Definim la mesura de Hausdorff $s$-dimensional com
+  Definim *la mesura de Hausdorff* $s$-dimensional com la suma més petita possible de diàmetres elevats a $s$ dels conjunts que formen una cobertura-$delta$, amb $delta$ tendint a zero. Simbòlicament:
 
   $ hausdorff = lim_(delta -> 0)  inf {sum_i abs(E_i)^s : abs(E_i) <= delta, A subset.eq union.big_i E_i }, s in [0, +infinity), delta in RR
 $
