@@ -1,5 +1,5 @@
 #let meta = (
-  title: "Estudi matemàtic i computacional de la generació de fractals"
+  title: "Estudi matemàtic i computacional dels objectes fractals"
 )
 
 #let PRINT = false
