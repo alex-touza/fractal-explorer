@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/fractal-explorer.iml" filepath="$PROJECT_DIR$/fractal-explorer.iml" />
       <module fileurl="file://$PROJECT_DIR$/paper.iml" filepath="$PROJECT_DIR$/paper.iml" />
       <module fileurl="file://$PROJECT_DIR$/web.iml" filepath="$PROJECT_DIR$/web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/presentation.iml" filepath="$PROJECT_DIR$/presentation.iml" />
     </modules>
   </component>
 </project>
