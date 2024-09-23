@@ -1,4 +1,4 @@
-mandelbrot:
+Mandelbrot1982:
   type: Book
   title: La geometría fractal de la naturaleza
   author: Mandelbrot, Benoît B.
@@ -6,20 +6,13 @@ mandelbrot:
   publisher: Tusquets Editores
   edition: 3ª edición
 
-mandelbrot-objects:
+Mandelbrot1987:
   type: Book
   title: Los objetos fractales. Forma, azar y dimensión
   author: Mandelbrot, Benoît B.
   date: 1987
   publisher: Tusquets Editores
   edition: 7ª edición
-
-mandelbrot-britain:
-  type: Article
-  author: Mandelbrot, Benoît B.
-  title: How Long Is the Coast of Britain? Statistical Self-Similarity and Fractional Dimension
-  url: "https://users.math.yale.edu/users/mandelbrot/web_pdfs/howLongIsTheCoastOfBritain.pdf"
-  publisher: Science
 
 falconer:
   type: Book
@@ -28,44 +21,11 @@ falconer:
   date: 2003
   publisher: Wiley
   
-falconer-properties:
-  type: Book
-  title: "Fractal Geometry: Mathematical Foundations and Application"
-  author: Falconer, K.
-  date: 2014
-  publisher: Wiley
-  page-range: xx
-
-falconer-hausdorff:
-  type: Book
-  title: "Fractal Geometry: Mathematical Foundations and Application"
-  author: Falconer, K.
-  date: 2014
-  publisher: Wiley
-  page-range: 44
-  
-falconer-measures:
-  type: Book
-  title: "Fractal Geometry: Mathematical Foundations and Application"
-  author: Falconer, K.
-  date: 2014
-  publisher: Wiley
-  page-range: 11
-
-falconer-unit-ball:
-  type: Book
-  title: "Fractal Geometry: Mathematical Foundations and Application"
-  author: Falconer, K.
-  date: 2014
-  publisher: Wiley
-  page-range: 46
-
 morgan-measures:
   type: Book
   title: "Geometric Measure Theory: A Beginner's Guide"
   author: Morgan, F.
   date: 2000
-  page-range: 7
   
 polinomial-map:
   type: Article
@@ -108,4 +68,126 @@ numberphile-mandelbrot-sparks:
   url: https://www.youtube.com/watch?v=FFftmWSzgmk
   date: 2019-04-18
 
-  
+Gomory2010:
+  type: article
+  title: Benoît Mandelbrot (1924–2010)
+  author: Gomory, Ralph
+  date: 2010-11-01
+  page-range: 378
+  serial-number:
+    doi: 10.1038/468378a
+    issn: 1476-4687
+  abstract: Mathematician, and father of fractal geometry, who described the roughness of nature.
+  parent:
+    type: periodical
+    title: Nature
+    issue: 7322
+    volume: 468
+
+Mandelbrot1967:
+  type: article
+  title: How Long Is the Coast of Britain? Statistical Self-Similarity and Fractional Dimension
+  author: Mandelbrot, Benoit
+  date: 1967
+  page-range: 636–638
+  url: https://www.science.org/doi/abs/10.1126/science.156.3775.636
+  serial-number:
+    doi: 10.1126/science.156.3775.636
+  abstract: Geographical curves are so involved in their detail that their lengths are often infinite or, rather, undefinable. However, many are statistically "self-similar," meaning that each portion can be considered a reduced-scale image of the whole. In that case, the degree of complication can be described by a quantity D that has many properties of a "dimension," though it is fractional; that is, it exceeds the value unity associated with the ordinary, rectifiable, curves.
+  parent:
+    type: periodical
+    title: Science
+    issue: 3775
+    volume: 156
+
+Gerver1971:
+  type: article
+  title: More on the Differentiability of the Riemann Function
+  author: Gerver, Joseph
+  date: 1971
+  page-range: 33–41
+  url:
+    value: http://www.jstor.org/stable/2373445
+    date: 2024-09-10
+  serial-number:
+    issn: 00029327, 10806377
+  parent:
+    type: periodical
+    title: American Journal of Mathematics
+    publisher: The Johns Hopkins University Press
+    issue: 1
+    volume: 93
+
+Kucharski2022:
+  type: article
+  title: Math’s beautiful monsters
+  author: Kucharski, Adam
+  date: 2022-09
+  url: https://nautil.us/maths-beautiful-monsters-234859/
+
+Edgar1990:
+  type: book
+  title: Measure, Topology, and Fractal Geometry
+  author: Edgar, Gerald A.
+  date: 1990
+  publisher: Springer New York
+  url: http://dx.doi.org/10.1007/978-1-4757-4134-6
+  serial-number:
+    doi: 10.1007/978-1-4757-4134-6
+
+Engelking1978:
+  type: book
+  title: Dimension theory
+  author: Engelking, Ryszard
+  date: 1978
+  publisher: North-Holland Pub. Co
+  page-range: 54
+
+Trochet:
+  type: Web
+  title: A History of Fractal Geometry
+  author: Trochet, Holly
+  date: 2009
+  url: https://web.archive.org/web/20120312153006/http://www-groups.dcs.st-and.ac.uk/%7Ehistory/HistTopics/fractals.html
+
+Gerver1969:
+  type: article
+  title: The differentiability of the Riemann function at certain rational multiples of pi
+  author: Gerver, Joseph
+  date: 1969
+  page-range: 668–670
+  url: https://www.pnas.org/doi/abs/10.1073/pnas.62.3.668
+  serial-number:
+    doi: 10.1073/pnas.62.3.668
+  abstract: It is shown that a continuous function which Riemann is said to have believed to be nowhere differentiable is in fact differentiable at certain points.
+  parent:
+    type: periodical
+    title: Proceedings of the National Academy of Sciences
+    issue: 3
+    volume: 62
+    
+MSEWeierstrass:
+  type: misc
+  title: "Why isn't the Weierstrass function differentiable?"
+  author: Towers, Eric
+  date: 2022
+  url: https://math.stackexchange.com/q/4360075
+  note: Mathematics Stack Exchange
+
+Hardy1916:
+  type: article
+  title: Weierstrass's Non-Differentiable Function
+  author: Hardy, G. H.
+  date: 1916
+  page-range: 301–325
+  url:
+    value: http://www.jstor.org/stable/1989005
+    date: 2024-09-23
+  serial-number:
+    issn: 00029947, 10886850
+  parent:
+    type: periodical
+    title: Transactions of the American Mathematical Society
+    publisher: American Mathematical Society
+    issue: 3
+    volume: 17

@@ -5,16 +5,18 @@
 
 = Estudi matemàtic dels objectes fractals
 
+En un intent de simplificar les definicions, s'ha optat per no fer ús del terme _espai mètric_ i utilitzar més simplement el terme _conjunt_. Per aquest motiu, cal tenir en compte que sempre que es faci servir aquest últim terme, la definició és vàlida per a qualsevol espai mètric.
+
 #def[Diàmetre][
   Donat un conjunt $E = {x_1, x_2, ..., x_n}$, definim el seu _diàmetre_, denotat amb $abs(E)$, com la distància més gran possible entre qualsevol parella de punts. Simbòlicament, $abs(E) = sup { d(x_i, x_j) : x_i,x_j in E}$.
 ]
 
 #def[Recobriment-$delta$][
-  Donat un conjunt $A$, una cobertura-$delta$ és una col·lecció comptable ${ E_i }$ de conjunts amb diàmetres $abs(E_i) <= delta$ tals que el conjunt $A$ conté la unió de tots els conjunts de la col·lecció. Simbòlicament#footnote[La definició real d'un recobriment fa ús de _conjunts indexats_ però s'ha optat per usar una definició simplificada.]: $ C_delta (A) = {E_i : abs(E_i) <= delta}, A subset.eq union.big_i E_i $
+  Donat un conjunt $A$, un _recobriment-$delta$_ és una col·lecció comptable ${ E_i }$ de conjunts amb diàmetres $abs(E_i) <= delta$ tals que el conjunt $A$ conté la unió de tots els conjunts de la col·lecció. Simbòlicament#footnote[La definició real d'un recobriment fa ús de _conjunts indexats_ però s'ha optat per usar una definició simplificada.]: $ C_delta (A) = {E_i : abs(E_i) <= delta}, A subset.eq union.big_i E_i $
 ] <recobriment-delta>
 
 #def[Funció gamma][
-  La funció gamma $Gamma(z)$ està definida als nombres complexos amb part real positiva i és una extensió del concepte de factorial, definit només a nombres enters positius, a aquest conjunt superior. La funció es defineix així:
+  La _funció gamma_ $Gamma(z)$ està definida als nombres complexos amb part real positiva i és una extensió del concepte de factorial, definit només a nombres enters positius, a aquest conjunt superior. La funció es defineix així:
   
   $
   Gamma(z) = integral^infinity_0 t^(z-1) e^(-t) dif t
@@ -23,7 +25,18 @@
   Es compleix que, per a tot $n$ enter positiu, $Gamma(n) = (n-1)!$, i, similarment al factorial, per a tot $z$ complex, $Gamma(z+1) = z Gamma(z)$.
 ] <funcio-gamma>
 
-== Dimensió fractal
+#def[Ordre][
+  Donada una col·lecció de conjunts $cal(A)$
+]
+
+#def[Dimensió de recobriment de Lebesgue o dimensió topològica][
+  Sigui $n >= 1$ un enter
+
+  En espais euclidians, la dimensió topològica és la dimensió euclidiana convencional. @Edgar1990
+]
+// p.92
+== Dimensions fractals
+
 El concepte de dimensió, en matemàtiques avançades, té molts significats; no es limita només al nombre d'eixos per representar una forma geomètrica a l'espai euclidià. Específicament, aquesta mesura s'anomena _dimensió topològica_.
 
 Si bé la dimensió topològica es pot entendre intuïtivament, la seva definició formal no és tan senzilla.
@@ -66,7 +79,6 @@ canvas(length: 3cm, {
   line((-1.25, 0), (1.25, 0), mark: (end: "stealth"))
   line((0, -1.25), (0, 1.25), mark: (end: "stealth"))
 })
-
 )
 
 ==== Mesura de Hausdorff
@@ -86,7 +98,7 @@ $
 La justificació d'aquesta definició està explicada amb summe detall a l'annex corresponent.
 
 
-#theorem[Relació entre la mesura de Lesbegue i la mesura de Hausdorff][ Donat un conjunt $A$ i la mesura de Hausdorff $n$-dimensional del conjunt $A$ on $n$ és un nombre enter positiu, la mesura de Hausdorff i la mesura de Lebesgue segueixen la relació
+#theorem[Relació entre la mesura de Lesbegue i la mesura de Hausdorff][ Donat un conjunt $A$ $n$-dimensional tal que $A subset RR^n$ i la mesura de Hausdorff $n$-dimensional del conjunt $A$ on $n$ és un nombre enter positiu, la mesura de Hausdorff i la mesura de Lebesgue segueixen la relació
   
   $
   cal(H)^n (A) = c_n^(-1) cal(L)^n (A)
@@ -145,12 +157,18 @@ $
 dim_"H " A = inf{s : hausdorff = 0} = sup{s : hausdorff = +infinity}
 $
 
+=== Dimensió autosimilar //p. 118
 
 === Condició del conjunt obert
+
 == Fractals de recursivitat geomètrica
 Aquests tipus de fractals també s'anomenen Sistemes de Funcions Iterades, o _IFS_ per abreviar.
 
 === Triangle i catifa de Sierpinski
+
+=== Conjunt de Cantor
+
+=== Estel de Koch
 
 == Fractals de funcions sobre el pla
 
@@ -159,7 +177,7 @@ Aquests tipus de fractals també s'anomenen Sistemes de Funcions Iterades, o _IF
 === Conjunt de Mandelbrot
 
 === Fractal de Newton
-
+/*
 == Atractors estranys
 === Teoria del caos
 
@@ -167,6 +185,8 @@ Aquests tipus de fractals també s'anomenen Sistemes de Funcions Iterades, o _IF
 
 == Fractals tridimensionals
 Quaternions
+
+*/
 
 #pagebreak()
 #pagebreak()

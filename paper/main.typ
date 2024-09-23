@@ -3,17 +3,19 @@
 #import "src/style/headings.typ": *
 #import "src/style/page.typ": *
 #import "meta.typ": *
+#import "@preview/wordometer:0.1.2": word-count, total-words
+
+
 #show: thmrules
 
 #show: style_headers
-
 
 #set document(..meta)
 
 
 #set text(font: "New Computer Modern", size: 11pt, lang: "ca")
 
-#set par(leading: 1.15em, justify: true, linebreaks: "optimized")
+#set par(leading: 1.25em, justify: true, linebreaks: "optimized")
 #show par: set block(below: 2em)
 
 #show figure.caption: set text(size: 10pt)
@@ -24,25 +26,32 @@
 
   align(bottom + right, {
     if not FINISHED {
-      text(size: 15pt, red)[ESBORRANY #datetime.today().display()]
+      text(size: 15pt, red)[
+        ESBORRANY #datetime.today().display()
+      ]
     } else if not CHECKED {
-      text(size: 15pt, orange)[NO REVISAT #datetime.today().display()]
+      text(size: 15pt, orange)[
+        NO REVISAT #datetime.today().display()
+      ]
     }
-      
     
+   
   })
 
 }
 
-#pagebreak()
+
+#pagebreak(to: "odd")
+#set page(numbering: "I")
+#counter(page).update(1)
 
 #set page(footer: context {
     let num = counter(page).get().first()
 
+
     
     set align(if calc.odd(num) { right } else { left })
     set text(10pt)
-
 
     num
   
@@ -57,19 +66,20 @@ Als contribuïdors del fòrum Stack Exchange Mathematics, que han proveït mater
 
 
 
-#pagebreak()
+#pagebreak(to: "odd")
 #preface_heading("Abstract")
 
 
 #preface_heading("Resumen")
 
-#pagebreak()
+#pagebreak(to: "odd")
 
-#let outline = outline(title: "Taula de continguts", indent: 1em)
+#let _outline = outline(title: "Taula de continguts", indent: 1em)
 
-#outline
 
-#pagebreak()
+#_outline
+
+#pagebreak(to: "odd")
 
 
 
@@ -77,27 +87,13 @@ Als contribuïdors del fòrum Stack Exchange Mathematics, que han proveït mater
 #set par(first-line-indent: 2em)
 
 
-#show heading.where(level: 1): set heading(numbering: n => [])
 
-#show heading.where(level: 1): it => {
-  set text(size: 24pt)
-  
-  block(below: 6em)
 
-  let num = counter(heading).at(it.location()).first()
+#set page(numbering: "1")
+#counter(page).update(1)
 
-  [Capítol #num]
-  
-  it
 
-  block(below: 2em)
-
-}
-
-#show heading.where(level: 4): it => {
-  block(text(style: "italic", weight: "regular", it.body), below: 2em)
-}
-
+// Introducció
 
 #include "src/chapters/1_introduccio_a_la_geometria_fractal.typ"
 #pagebreak()
@@ -108,6 +104,9 @@ Als contribuïdors del fòrum Stack Exchange Mathematics, que han proveït mater
 
 
 = Conclusió
+
+#set page(numbering: "I")
+#counter(page).update(1)
 
 = Annexos
 
