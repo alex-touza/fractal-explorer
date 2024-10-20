@@ -5,9 +5,21 @@
 == Justificacions i demostracions matemàtiques
 Per reduir la llargada del cos principal del treball, es presenten aquí demostracions d'algunes proposicions i teoremes, així com explicacions addicionals de les definicions matemàtiques presentades. #if not PRINT [Recordeu que les referències com #emph[@hausdorff-prop1] són clicables.]
 
+#explanation[de @def-topologia][
+   Intuïtivament, una topologia sobre un conjunt és una forma d'expressar la proximitat (els veïnats) dels elements en un conjunt, sense cap noció de distància.
 
-#explanation[de @def_mesura_hausdorff][
-  La idea d'aquesta mesura és considerar tots els  recobriments-$delta$ (@recobriment-delta) possibles del conjunt $A$ que es vol mesurar: 
+   Per exemple, considerem el conjunt $A = {1, 3, 10, 15, 17}$. Una topologia possible sobre aquest conjunt podria ser $tau_1 = {emptyset, A}$. L'única intersecció possible, $emptyset sect A = emptyset$, i l'única unió possible, $emptyset union A = A$, estan dins del conjunt. Tanmateix, una topologia així no és gaire útil, perquè
+]
+
+#explanation[d'ambigüitats amb la dimensió intrínseca][
+  Hem definit la dimensió intrínseca com el nombre de paràmetres requerits per obtenir els punts que formen l'objecte. Per tant, una funció com $f(x)=2$, que representa una recta, tindria dimensió 1, perquè el conjunt de punts es pot definir amb l'expressió ${(x,2) :  x in RR}$.
+  
+  Tanmateix, en contextos fora de la geometria o la topologia, com en el tractament de dades, la dimensió intrínseca és 0 si la funció és constant. Aleshores, la funció $f$ anterior tindria dimensió 0. Com aquest treball es centra en l'àrea de la topologia, aquesta definició no s'ha fet servir.
+]
+
+
+#explanation[de @def-mesura-hausdorff][
+  La idea d'aquesta mesura és considerar tots els  recobriments-$delta$ (@def-recobriment-delta) possibles del conjunt $A$ que es vol mesurar: 
   $
   {{E_i : abs(E_i) <= delta } : A subset.eq union.big_i E_i }, delta in (0, +infinity)
   $
@@ -28,7 +40,7 @@ Per reduir la llargada del cos principal del treball, es presenten aquí demostr
   
   
   
-  Si $delta$ es redueix, el nombre de col·leccions ---és a dir, recobriments possibles--- també redueix i aleshores l'ínfim augmenta (o no disminueix). Per tant, agafem el límit de $delta -> 0$:
+  Interessa que els conjunts que formen el recobriment siguin el més petits possibles, és a dir, que $delta$ sigui el més petit possible. Si $delta$ es redueix, el nombre de col·leccions ---és a dir, recobriments possibles--- també redueix i aleshores l'ínfim augmenta (o no disminueix). Per tant, agafem el límit de $delta -> 0$:
 
   $
   hausdorff = lim_(delta -> 0) hausdorffdelta = lim_(delta -> 0)  inf {sum_i abs(E_i)^s : abs(E_i) <= delta, A subset.eq union.big_i E_i }, s in [0, +infinity), delta in RR

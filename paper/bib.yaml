@@ -191,3 +191,32 @@ Hardy1916:
     publisher: American Mathematical Society
     issue: 3
     volume: 17
+
+Bourbaki1995:
+  type: book
+  title: General Topology
+  author: Bourbaki, Nicolas
+  date: 1995
+  publisher: Springer Berlin Heidelberg
+  url: http://dx.doi.org/10.1007/978-3-642-61701-0
+  serial-number:
+    doi: 10.1007/978-3-642-61701-0
+
+Bigg2011:
+  type: anthos
+  title: "A Visual History of Jean Perrin's Brownian Motion Curves"
+  author: Bigg, Charlotte
+  date: 2011
+  editor:
+  - Daston, Lorraine
+  - Lunbeck, Elizabeth
+  parent:
+    type: anthology
+    title: Histories of scientific observation
+    publisher: University of Chicago Press
+
+Cassidy:
+  type: article
+  title: Einstein on brownian motion
+  author: Cassidy, David
+  url: https://history.aip.org/exhibits/einstein/essay-brownian.htm

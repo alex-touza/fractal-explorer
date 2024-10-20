@@ -1,20 +1,36 @@
-#let style_headers = document => {
+#let style_headings = document => {
   set heading(numbering: "1.1.")
+
   
-  show heading.where(level: 1): set heading(numbering: n => [])
+  
+  show heading.where(level: 1): set heading(numbering: "1.")
 
   show heading.where(level: 1): it => {
+    set text(hyphenate: false)
     set text(size: 24pt)
+    set par(first-line-indent: 0em, hanging-indent: 0em)
     
     block(below: 6em)
   
     let num = counter(heading).at(it.location()).first()
-  
-    [Capítol #num]
+
+    context {
+      if here().page-numbering() == "1" {
+        block(text[
+      Capítol #num
+
+    ])
+      }
+    }
     
-    it
+
+    block(text[
+      #it.body
+    ])
+
+   
   
-    block(below: 2em)
+    block(below: 1em)
   
   }
   
@@ -25,8 +41,38 @@
   document
 }
 
+#let style_preface_heading = document => {
+  show heading.where(level: 1): set heading(numbering: none)
+  show heading.where(level: 1): it => {
+    set text(hyphenate: false)
+    set text(size: 24pt)
+    set par(first-line-indent: 0em, hanging-indent: 0em)
+    
+    block(below: 6em)
+  
+    block(text[
+      #it.body
+    ])
+
+   
+  
+    block(below: 1em)
+  
+  }
+  
+  document
+}
+
+#let style_annex_headings = document => {
+
+  show heading: set heading(numbering: none)
+
+  show heading.where(level: 2): set heading(numbering: (a, b) => [Annex #(b - 2):])
+  document
+}
+
 #let preface_heading(t) = {
   //show text: smallcaps
   show heading: set text(size: 17pt)
-  heading(outlined: false, numbering: none, t)
+  heading(outlined: false, numbering: none, smallcaps(t))
 }

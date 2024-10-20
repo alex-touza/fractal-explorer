@@ -1,4 +1,4 @@
-#import "@preview/ctheorems:1.1.2": *
+#import "lib/ctheorems.typ": *
 
 
 

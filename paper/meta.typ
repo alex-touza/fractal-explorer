@@ -7,3 +7,5 @@
 #let FINISHED = false
 
 #let CHECKED = false
+
+#let PLOTS = true
