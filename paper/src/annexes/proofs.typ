@@ -8,7 +8,7 @@ Per reduir la llargada del cos principal del treball, es presenten aquí demostr
 #explanation[de @def-topologia][
    Intuïtivament, una topologia sobre un conjunt és una forma d'expressar la proximitat (els veïnats) dels elements en un conjunt, sense cap noció de distància.
 
-   Per exemple, considerem el conjunt $A = {1, 3, 10, 15, 17}$. Una topologia possible sobre aquest conjunt podria ser $tau_1 = {emptyset, A}$. L'única intersecció possible, $emptyset sect A = emptyset$, i l'única unió possible, $emptyset union A = A$, estan dins del conjunt. Tanmateix, una topologia així no és gaire útil, perquè
+   Per exemple, considerem el conjunt $A = {1, 3, 10, 15, 17}$. Una topologia possible sobre aquest conjunt podria ser $tau_1 = {emptyset, A}$, ja que compleix les condicions: l'única intersecció possible, $emptyset sect A = emptyset$, i l'única unió possible, $emptyset union A = A$, estan dins del conjunt. Tanmateix, una topologia així no és gaire útil, perquè les relacions de proximitat no estan definides de forma acurada. Un exemple més útil podria ser $tau_2 = {emptyset, {10}, {15}, {10, 15}, A}$, en la qual expressem que els elements 10 i 15 són pròxims (o relacionats d'alguna altra forma).
 ]
 
 #explanation[d'ambigüitats amb la dimensió intrínseca][
@@ -17,9 +17,13 @@ Per reduir la llargada del cos principal del treball, es presenten aquí demostr
   Tanmateix, en contextos fora de la geometria o la topologia, com en el tractament de dades, la dimensió intrínseca és 0 si la funció és constant. Aleshores, la funció $f$ anterior tindria dimensió 0. Com aquest treball es centra en l'àrea de la topologia, aquesta definició no s'ha fet servir.
 ]
 
+#explanation[de @def-dim-lebesgue][
+  La dimensió de Lebesgue es basa, com es dedueix de l'explicació intuïtiva ja exposada, en el nombre de solapaments
+]
+
 
 #explanation[de @def-mesura-hausdorff][
-  La idea d'aquesta mesura és considerar tots els  recobriments-$delta$ (@def-recobriment-delta) possibles del conjunt $A$ que es vol mesurar: 
+  Primer, considerem tots els  recobriments-$delta$ (@def-recobriment-delta) possibles del conjunt $A$ que es vol mesurar: 
   $
   {{E_i : abs(E_i) <= delta } : A subset.eq union.big_i E_i }, delta in (0, +infinity)
   $

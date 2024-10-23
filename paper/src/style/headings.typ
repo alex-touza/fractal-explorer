@@ -10,7 +10,7 @@
     set text(size: 24pt)
     set par(first-line-indent: 0em, hanging-indent: 0em)
     
-    block(below: 6em)
+    block(below: 3em)
   
     let num = counter(heading).at(it.location()).first()
 
@@ -35,7 +35,7 @@
   }
   
   show heading.where(level: 4): it => {
-    block(text(style: "italic", weight: "regular", it.body), below: 2em, above: 3em)
+    block(text(style: "italic", weight: "regular", it.body), below: 2em, above: 2em)
   }
   
   document
@@ -48,7 +48,7 @@
     set text(size: 24pt)
     set par(first-line-indent: 0em, hanging-indent: 0em)
     
-    block(below: 6em)
+    block(below: 3em)
   
     block(text[
       #it.body
@@ -56,7 +56,7 @@
 
    
   
-    block(below: 1em)
+    block(below: 0.5em)
   
   }
   

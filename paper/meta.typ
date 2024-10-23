@@ -1,8 +1,9 @@
 #let meta = (
-  title: "Estudi matemàtic i computacional dels objectes fractals"
+  title: "Estudi matemàtic i computacional dels objectes fractals",
+  subtitle: "Un aprofundiment en topologia, geometria i dimensió "
 )
 
-#let PRINT = false
+#let PRINT = true
 
 #let FINISHED = false
 
