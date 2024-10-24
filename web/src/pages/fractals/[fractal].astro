@@ -14,7 +14,8 @@ export const getStaticPaths = (() =>
 		.map((fractal) => ({
 			params: { fractal: fractal.id },
 			props: { fractal },
-		}))) satisfies GetStaticPaths;
+		}))
+	) satisfies GetStaticPaths;
 
 interface Button {
 	title: string;
@@ -46,7 +47,8 @@ const { fractal } = Astro.props;
 ---
 
 <Base title={fractal.name}>
-	<div class="relative h-screen w-screen bg-[url('/bubbles.svg')]">
+	<div class="relative h-screen w-screen">
+		<canvas class="w-full h-full absolute" id="canvas"></canvas>
 		<h1
 			class="floating-box absolute p-2 text-2xl text-primary-100 transition hover:bg-primary-800/60 sm:right-0 sm:top-0"
 		>
@@ -83,4 +85,6 @@ const { fractal } = Astro.props;
 		// TODO - millorar type-safety creant un tipus específic de CustomEvent
 		console.log((e as CustomEvent).detail);
 	});
+
+
 </script>

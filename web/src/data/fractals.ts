@@ -17,7 +17,7 @@ export const fractals: FractalView[] = [
 			"Frontera del pla complex que resulta del mètode de Newton per trobar arrels d'una funció.",
 		thumbnailPath: 'newton.png',
 		id: 'newton',
-	},
+	},/*
 	{
 		name: 'Corbes de Koch',
 		descr: '',
@@ -32,7 +32,7 @@ export const fractals: FractalView[] = [
 	},
 	{
 		name: 'Atractor de Lorentz',
-	},
+	},*/
 ];
 
 export const getFractal = (route: string) =>
