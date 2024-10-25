@@ -112,10 +112,10 @@ Per una banda, el marc teòric del treball, que és aquesta mateixa memòria, es
 En primer lloc, el capítol 1 exposa breument la història dels objectes fractals, on es poden trobar a la natura i les característiques que s'hi associen. En segon lloc, el capítol 2 consisteix en el nucli matemàtic del projecte, explorant el concepte de dimensió i dos dels tipus de fractals més importants. En tercer lloc, el capítol 3 estudia els mètodes per generar els objectes fractals i ho relaciona amb la part pràctica del treball. Finalment, els annexos inclouen un glossari amb termes de matemàtiques i informàtica rellevants i necessaris per a la comprensió del contingut de la memòria, una sèrie d'explicacions, justificacions i demostracions matemàtiques i uns comentaris sobre la part pràctica del treball.
 /*
 En un intent de presentar el treball com es sol fer en articles matemàtics, la memòria està organitzada amb proposicions, definicions i demostracions numerades i enllaçades. Algunes definicions es localitzen al principi del capítol corresponent si el seu contingut no s'explica directament al cos.
-*/
+
 
 Per l'altra banda, la part pràctica d'aquest projecte ha estat la creació d'una aplicació web que genera objectes fractals i proveeix eines per a explorar-los còmodament i interactuar amb ells. Aquesta tasca és fruit dels coneixements del segon i, sobretot, del tercer capítol.
-
+*/
 Totes les figures mostrades, si no s'expressa el contrari, són originals. El codi font d'aquesta memòria, de l'aplicació web i de la presentació està disponible a #printable-hyperlink("GitHub", "https://github.com/alex-touza/fractal-explorer").
 
 #show: style_headings

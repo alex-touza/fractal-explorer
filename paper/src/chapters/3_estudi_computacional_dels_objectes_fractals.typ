@@ -6,7 +6,7 @@
 
 = Estudi computacional dels objectes fractals
 
-En aquest últim capítol, s'exposaran breument algunes tècniques de generació de fractals mitjançant programes informàtics. Primer, estudiarem la generació de fractals simples, i després, la generació de fractals més complexos.
+En aquest últim capítol, s'exposaran breument algunes tècniques de generació de fractals mitjançant programes informàtics. Primer, estudiarem la generació de fractals simples, i després, la generació de fractals més complexes.
 
 == Generació de fractals simples
 
@@ -127,7 +127,7 @@ $
 */
 == Generació de fractals complexos
 
-Fins ara hem mostrat només fractals estrictament geomètrics. En fractals més complexos#footnote[_No pun intended._], com els conjunts de Julia, l'algoritme té un enfocament bastant diferent per la seva naturalesa. S'ha d'executar un algorisme per a cadascun del punts del pla, cosa que és molt costosa.
+Fins ara hem mostrat només fractals estrictament geomètrics. En fractals més complexes#footnote[_No pun intended._], com els conjunts de Julia, l'algoritme té un enfocament bastant diferent per la seva naturalesa. S'ha d'executar un algorisme per a cadascun del punts del pla, cosa que és molt costosa.
 
 Per desgràcia, no existeix cap forma molt bona d'optimitzar aquest procés. El que sí que es pot fer és escollir un llenguatge ràpid. Per a la visualització en dues i tres dimensions, una opció molt popular és OpenGL2, que executa el codi a la targeta gràfica directament. Aquest llenguatge és molt complicat, però assegura un rendiment immillorable.
 
