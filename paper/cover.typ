@@ -1,6 +1,16 @@
 #import "meta.typ": *
+#import "src/figures.typ"
+#import "@preview/cetz:0.2.2": canvas, draw, plot
 
 #set par(leading: 0.5em, justify: false)
+
+#set page(footer: [
+  #set text(7pt)
+  #set align(right)
+  #datetime.today().display() --- 
+  #if PRINT [Versió d'impressió
+  ] else [Versió digital]
+])
 
 #align(horizon + center)[
   #set par(spacing: 0.5em)
@@ -16,10 +26,14 @@
 
   
   
-
-  #box(outset: (y: 6em), height: 400pt)[
+  #align(center + horizon)[
     
+      
+      #figures.koch-snowflake(sides: 5, size: 5, n: 5)
+      
+      #v(6em)
   ]
+  
 
   #set par(spacing: 1em)
 
@@ -31,7 +45,7 @@
   
         2n Batxillerat B
   
-        Institut Ernest Lluch #sym.dash Curs 2024-2025
+        Institut Ernest Lluch #sym.dash.em Curs 2024#{sym.dash.en}2025
       ]
   
       #v(0.5em)
@@ -39,7 +53,9 @@
       #text(size: 13pt)[
         25 d'octubre de 2024
   
-        Departament de Matemàtiques #sym.dash José Ramírez
+        _Departament de Matemàtiques_ #sym.dash.em José Ramírez
+
+        Treball de Recerca
       ]
       
     ]
@@ -63,7 +79,7 @@
     ]
   }
 
-  v(15em)
+  v(16em)
   
  
 })

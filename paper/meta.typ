@@ -3,10 +3,10 @@
   subtitle: "Un aprofundiment en topologia, geometria i dimensió "
 )
 
-#let PRINT = true
+#let PRINT = false
 
-#let FINISHED = false
+#let FINISHED = true
 
-#let CHECKED = false
+#let CHECKED = true
 
 #let PLOTS = true
