@@ -105,7 +105,7 @@ Aquesta recerca sobre les fractals ha portat a conèixer amb certa profunditat c
 
 
 
-L'autor voldria ressaltar l'ús del sistema de composició tipogràfica Typst, que s'ha servit per aconseguir una satisfactòria presentació del treball així com per mostrar correctament les expressions matemàtiques, les gràfiques i els diagrames. És similar a LaTeX, àmpliament usat en articles científics.
+L'autor voldria ressaltar l'ús del sistema de composició tipogràfica Typst, que s'ha fet servir per aconseguir una satisfactòria presentació del treball així com per mostrar correctament les expressions matemàtiques, les gràfiques i els diagrames. És similar a LaTeX, àmpliament usat en articles científics.
 
 Per una banda, el marc teòric del treball, que és aquesta mateixa memòria, es divideix en tres capítols: una perspectiva històrica i qualitativa de les fractals, un aprofundiment matemàtic i, finalment, un anàlisi algorísmic.
 
