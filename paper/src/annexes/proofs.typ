@@ -48,7 +48,7 @@ Per reduir la llargada del cos principal del treball, es presenten aquí demostr
   
   
   Finalment, aquesta expressió és la definició de la mesura de Hausdorff $s$-dimensional.
-]
+] <expl-mesura-hausdorff>
 
 #demo[de @hausdorff-prop1][
   Fixem-nos en el sumatori dels diàmetres d'un sol recobriment. Si $s < t$, aleshores, sabent que $abs(E_i) <= delta$:
@@ -140,6 +140,6 @@ Per reduir la llargada del cos principal del treball, es presenten aquí demostr
 #demo[de @prop-sierpinski-dim-top-1][
   Apliquem la definició de la dimensió de recobriment de Lebesgue.
 
-  Podem cobrir la fractal amb un sol conjunt, però el descartarem. Per a qualsevol recobriment, podem refinar-lo de manera que només els vèrtexs dels triangles estiguin a dos conjunts a la vegada. Per tant, la dimensió topològica és 1.
+  Podem cobrir la fractal amb un sol conjunt, però ho descartarem. Per a qualsevol recobriment, podem refinar-lo de manera que només els vèrtexs dels triangles estiguin a dos conjunts a la vegada. Per tant, la dimensió topològica és 1.
 ]
 

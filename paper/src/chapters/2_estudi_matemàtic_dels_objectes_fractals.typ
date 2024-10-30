@@ -21,7 +21,7 @@ A continuació, es presenten les definicions matemàtiques utilitzades en aquest
   forall S in tau, union.big_(O in S) O in T and sect.big_(O in S) O in T
   $
 
-  La _topologia discreta_ és la col·lecció de tots els subconjunts de $X$, i la _topologia indiscreta_ és simplement el conjunt buit i $X$.
+  La _topologia discreta_ és la col·lecció de tots els subconjunts de $X$ i la _topologia indiscreta_ és simplement el conjunt buit i $X$.
   
   Hi ha moltes altres definicions alternatives de topologies, però aquesta és la més simple d'exposar.
 
@@ -308,7 +308,7 @@ Aquesta altra definició de dimensió topològica s'anomena dimensió de recobri
 #def[Dimensió de recobriment de Lebesgue o dimensió topològica][
   Sigui $n$ un nombre enter tal que $n >= -1$. Diem que un conjunt $S$ té _dimensió de recobriment de Lebesgue_ $<= n$ si i només si cada recobriment obert de $S$ (@def-recobriment) té un refinament (@def-refinament) amb ordre de com a màxim $n$ (@def-ordre).
 
-  Aleshores, clarament, el valor de la dimensió de recobriment de Lebesgue és $n$ si és $<= n$ però no $<= n-1$./*#footnote[La definició real fa servir refinaments, però l'autor no ha pogut arribar a entendre el seu propòsit i, segons ha pogut comprovar, l'ús directe dels recobriments no sembla afectar la definició.]*/ @Edgar1990
+  Aleshores, clarament, el valor de la dimensió de recobriment de Lebesgue és $n$ si és $<= n$ però no $<= n-1$/*#footnote[La definició real fa servir refinaments, però l'autor no ha pogut arribar a entendre el seu propòsit i, segons ha pogut comprovar, l'ús directe dels recobriments no sembla afectar la definició.]*/ @Edgar1990.
 ] <def-dim-lebesgue>
 
 Apliquem-la pas a pas demostrant la següent proposició: //les següents proposicions:
@@ -322,7 +322,7 @@ Apliquem-la pas a pas demostrant la següent proposició: //les següents propos
 
   Per aplicar correctament la definició, classifiquem els recobriments possibles en dos classes: (i) recobriments amb un conjunt i (ii) recobriments amb dos o més conjunts. Els recobriments de classe (i) són d'ordre 0 i els de classe (ii) són d'ordre 1 o més.
   
-  El refinament de la classe (i) de conjunts pot ser un recobriment de (i) o (ii) i el refinament de classe (ii) sempre seran (ii) perquè tots els conjunts del refinament han de ser subconjunt d'algun conjunt del recobriment.
+  El refinament de la classe (i) de conjunts pot ser un recobriment de (i) o (ii) i el refinament de classe (ii) sempre seran (ii) perquè tots els conjunts del refinament han de ser subconjunt d'algun conjunt del recobriment, de manera que sempre poden ser refinats per ser d'ordre 1.
 
   Descartem la dimensió $-1$ perquè només s'aplica al conjunt buit. Si la dimensió és $<= 0$, aleshores tots els recobriments oberts han de tenir un refinament d'ordre 0, però això no és així perquè els de classe (ii) són per força d'ordre 1. Clarament, pel raonament anterior, la dimensió sí que es compleix que és $<=1$ i com que busquem el valor més petit, la el valor de la dimensió de recobriment d'una corba és 1.
 ]
@@ -437,7 +437,7 @@ $
 
 
 
-La justificació de la definició formal està explicada amb summe detall a l'annex corresponent.
+La justificació de la definició formal està explicada amb summe detall a l'annex corresponent (@expl-mesura-hausdorff).
 
 /*
 #theorem[Relació entre la mesura de Lebesgue i la mesura de Hausdorff][ Donat un conjunt $A$ $n$-dimensional tal que $A subset RR^n$ i la mesura de Hausdorff $n$-dimensional del conjunt $A$ on $n$ és un nombre enter positiu, la mesura de Hausdorff i la mesura de Lebesgue segueixen la relació
@@ -519,9 +519,9 @@ $
 
 ==== Relació amb la dimensió topològica
 
-La dimensió de recobriment de Lebesgue coincideix amb la dimensió de Hausdorff en conjunts, informalment parlant, "regulars" o que es "comporten bé", és a dir, que no tenen cap complexitat geomètrica. Quan el conjunt és una fractal la dimensió de Hausdorff sol no ser un enter.
+La dimensió de recobriment de Lebesgue coincideix amb la dimensió de Hausdorff en conjunts, informalment parlant, "regulars" o que es "comporten bé", és a dir, que no tenen cap complexitat geomètrica. Quan el conjunt és una fractal la dimensió de Hausdorff sol no ser un enter i, aleshores, no coincideix.
 
-#theorem[Relació entre la dimensió de Hausdorff i la dimensió topològica][Un conjunt de dimensió topològica $n$ té una mesura de Hausdorff de $n$ on $n$ és un nombre enter.] <teorema-hausdorff-topologica>
+#theorem[Relació entre la dimensió de Hausdorff i la dimensió topològica][Un conjunt de dimensió topològica $n$ té una dimensió#footnote[La versió en paper incorrectament diu "mesura".] de Hausdorff de $n$ on $n$ és un nombre enter.] <teorema-hausdorff-topologica>
 /*
 La demostració del teorema està disponible als annexos.
 */

@@ -35,7 +35,7 @@ En aquest primer capítol, s'exposarà el concepte de _fractal_ i es definirà d
   $
 
 
-  Evidentment, si la funció no és contínua en $a$, aleshores tampoc és analítica en $a$, ja que . Per tant, una funció com $g(x) = x^2/(x-1)$ és analítica en $RR - {1}$.
+  Evidentment, si la funció no és contínua en $a$, aleshores tampoc és analítica en $a$. Per tant, una funció com $g(x) = x^2/(x-1)$ és analítica en $RR - {1}$.
 
   Si per al punt $a$ la funció no convergeix a cap nombre o convergeix a un valor diferent de $f(a)$, aleshores la funció tampoc és analítica. Per exemple, la funció $f(x)= sum^infinity_(n=1) x^n$ no és analítica perquè la sèrie no és convergent, però les funcions trigonomètriques bàsiques, $sin$ i $cos$, estan definides amb sèries convergents:
 
@@ -225,7 +225,7 @@ La geometria fractal és un dels camps de les matemàtiques que més ha desperta
 
 Les fractals són una bona representació de la realitat. Si bé la geometria euclidiana, a la qual estem acostumats, acaba sent llisa quan ens hi apropem prou, això no representa amb precisió el món natural. La geometria fractal té un enfocament diferent i considera que les formes no són llises, sinó infinitament rugoses. Aquesta postura més realista i propera al món real contrasta amb la moltes altres branques de les matemàtiques, que són més difícils de relacionar directament amb la natura. Això, a més, fa que la geometria fractal sigui un d'aquells conceptes matemàtics que, quan hom els coneix amb profunditat, els observa a tota la realitat.
 
-Ara bé, cal remarcar que són representacions: les formes fractals, també, són una aproximació de la realitat, ja que no existeix realment la rugositat infinita (una mateixa forma no es pot repetir). Els fenòmens que es poden veure a les figures es considera que exhibeixen un comportament fractal, però no es poden anomenar fractals parlant.
+Ara bé, cal remarcar que són representacions: les formes fractals, també, són una aproximació de la realitat, ja que no existeix realment la rugositat infinita (una mateixa forma no es pot repetir). Els fenòmens que es poden veure a les figures es considera que exhibeixen un comportament fractal, però no es poden anomenar fractals estrictament parlant.
 
 Tanmateix, com Mandelbrot aclareix al principi del seu llibre, la geometria fractal no es basa en fenòmens naturals. Com Mandelbrot mateix explica, aquesta branca de les matemàtiques va ser una conseqüència dels "monstres" concebuts a finals del segle XIX, exposats a la secció anterior. I aquestes matemàtiques són les que s'exploraran al llarg d'aquest treball.
 

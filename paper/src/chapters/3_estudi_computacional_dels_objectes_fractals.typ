@@ -51,6 +51,7 @@ Per exemple, aquest és el pseudocodi per al triangle de Sierpinski, que començ
       + sierpinski _left_, $b$, _down_, $i$
       + sierpinski _down_, _right_, $c, i$
     + *end*
+  + *end*
 ]
 
 === Geometria analítica
@@ -129,6 +130,7 @@ $
 
 Fins ara hem mostrat només fractals estrictament geomètrics. En fractals més complexes#footnote[_No pun intended._], com els conjunts de Julia, l'algoritme té un enfocament bastant diferent per la seva naturalesa. S'ha d'executar un algorisme per a cadascun del punts del pla, cosa que és molt costosa.
 
+=== Entorn
 Per desgràcia, no existeix cap forma molt bona d'optimitzar aquest procés. El que sí que es pot fer és escollir un llenguatge ràpid. Per a la visualització en dues i tres dimensions, una opció molt popular és OpenGL2, que executa el codi a la targeta gràfica directament. Aquest llenguatge és molt complicat, però assegura un rendiment immillorable.
 
 Durant aquest projecte, de forma paral·lela a l'estudi matemàtic, s'ha iniciat la creació d'un programa d'aquestes característiques per generar els conjunts de Julia. S'espera poder completar-lo al llarg de les properes setmanes.

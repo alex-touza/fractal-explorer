@@ -18,7 +18,7 @@ Palabras clave: _fractales_, _topología_, _dimensión_, _geometría_, _algoritm
 
 This research project has consisted in a study of the mathematical basis of fractal geometry and the generation of fractal objects, exploring topology ---a branch of advanced mathematics--- while maintaining mathematical rigor.
 
-The origin and characteristics of fractal objects has been studied. The core of the project ---the mathematical study---- has consisted in a rigorous examination of available mathematical literature on the concept of dimension in both classical and fractal geometry, including the execution of several proofs.
+The origin and characteristics of fractal objects has been studied. The core of the project ---the mathematical study--- has consisted in a rigorous examination of available mathematical literature on the concept of dimension in both classical and fractal geometry, including the execution of several proofs.
 
 Iterated functions systems have been introduced, and the acquired knowledge has been applied to calculate the dimensions of various fractals and study Julia sets. Small computer programs to generate these fractals have been written with Typst.
 
