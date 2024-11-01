@@ -220,3 +220,16 @@ Cassidy:
   title: Einstein on brownian motion
   author: Cassidy, David
   url: https://history.aip.org/exhibits/einstein/essay-brownian.htm
+
+Campuzano:
+  type: Book
+  title: Complex Analysis - A Visual and Interactive Introduction
+  author: Ponce Campuzano, Juan Carlos
+  url: https://math.libretexts.org/Bookshelves/Analysis/Complex_Analysis_-_A_Visual_and_Interactive_Introduction_(Ponce_Campuzano)
+
+#Henderson:
+#  type: misc
+#  title: Determine IFS of the von Koch Curve
+#  author: Henderson, Xander
+#  url: https://math.stackexchange.com/q/2393523
+#  note: Mathematics Stack Exchange

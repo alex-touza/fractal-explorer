@@ -10,7 +10,7 @@
     set text(size: 24pt)
     set par(first-line-indent: 0em, hanging-indent: 0em)
     
-    block(below: 3em)
+    block(below: 1.5em)
   
     let num = counter(heading).at(it.location()).first()
 
@@ -48,7 +48,7 @@
     set text(size: 24pt)
     set par(first-line-indent: 0em, hanging-indent: 0em)
     
-    block(below: 3em)
+    block(below: 1.5em)
   
     block(text[
       #it.body
@@ -67,12 +67,12 @@
 
   show heading: set heading(numbering: none)
 
-  show heading.where(level: 2): set heading(numbering: (a, b) => [Annex #(b - 2):])
+  show heading.where(level: 2): set heading(numbering: none)
   document
 }
 
 #let preface_heading(t) = {
   //show text: smallcaps
-  show heading: set text(size: 17pt)
+  show heading: set text(size: 16pt)
   heading(outlined: false, numbering: none, smallcaps(t))
 }

@@ -45,7 +45,7 @@
 ))
 
 #math_terms()
-
+/*
 === Termes d'algorísmia
  
 #let algorithms_terms = glossary((
@@ -64,3 +64,4 @@
 ))
 
 #algorithms_terms()
+*/

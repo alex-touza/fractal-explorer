@@ -1,3 +1,5 @@
+#import "src/figures.typ"
+/*
 // unnumbered title page if needed
 // ...
 
@@ -37,3 +39,6 @@ Acknowledgments
 
 = Glossary
 #lorem(50)
+*/
+
+#figures.koch-snowflake(sides: 5, size: 5, n: 5)

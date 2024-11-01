@@ -35,7 +35,7 @@ En aquest primer capítol, s'exposarà el concepte de _fractal_ i es definirà d
   $
 
 
-  Evidentment, si la funció no és contínua en $a$, aleshores tampoc és analítica en $a$, ja que . Per tant, una funció com $g(x) = x^2/(x-1)$ és analítica en $RR - {1}$.
+  Evidentment, si la funció no és contínua en $a$, aleshores tampoc és analítica en $a$. Per tant, una funció com $g(x) = x^2/(x-1)$ és analítica en $RR - {1}$.
 
   Si per al punt $a$ la funció no convergeix a cap nombre o convergeix a un valor diferent de $f(a)$, aleshores la funció tampoc és analítica. Per exemple, la funció $f(x)= sum^infinity_(n=1) x^n$ no és analítica perquè la sèrie no és convergent, però les funcions trigonomètriques bàsiques, $sin$ i $cos$, estan definides amb sèries convergents:
 
@@ -44,7 +44,7 @@ En aquest primer capítol, s'exposarà el concepte de _fractal_ i es definirà d
   $
 
   La demostració de la convergència d'aquestes funcions es proposa com un exercici per al lector.#footnote[
-    #printable-hyperlink("https://proofwiki.org/wiki/Sine_Function_is_Absolutely_Convergent", "Demostració per al sinus.")
+    #printable-hyperlink("Demostració per al sinus.", "https://proofwiki.org/wiki/Sine_Function_is_Absolutely_Convergent")
   ]
 
   
@@ -96,7 +96,7 @@ El matemàtic i físic francès André-Marie Ampère va fer una demostració ---
 El teorema d'Ampère, tanmateix, no considerava el cas que aquestes seccions siguin infinitament petites---és a dir, assumeix que una corba infinitament rugosa és impossible.
 
 
-Durant la dècada de 1860, Bernhard Riemann va proposar una funció analítica contínua que no era, suposadament, derivable enlloc. Es defineix amb l'expressió (@fig-grafica-riemann)
+Durant la dècada de 1860, Bernhard Riemann va proposar una funció analítica contínua que no era, suposadament, derivable enlloc. Es defineix amb l'expressió (@fig-grafica-riemann, als annexos)
 
 $
 R(x)=sum^infinity_(n=1) sin(n^2 x)/n^2
@@ -116,49 +116,7 @@ $
 tal que $0 < a < 1$, $b$ és un enter positiu i $display(a b > 1 + 3/2pi)$.
 
 
-#figure(caption: [Gràfica de la funció de Riemann.])[
-  #canvas({
-    import draw: *
-  
-    let Rie(n) = {
-      return x => (range(1, n + 1).map(i => (calc.sin(i * i * x) / (n*n))).sum() )
-    }
-
-    if PLOTS {
-      plot.plot(size: (10,8), axis-style: "school-book", plot-style: (stroke: blue.transparentize(50%)), y-label: "R(x)", {
-        plot.add(domain: (-0.8, 0.8), samples: 250, axes: ("x", "y"), Rie(15))
-      })
-    } else {
-      content((0, 0), text(red)[Gràfiques desactivades])
-    }
-    
-  })
-] <fig-grafica-riemann>
-
-#figure(caption: [Gràfica de la funció de Weierstrass.])[
-  #canvas({
-    import draw: *
-    
-    let a = 0.5
-    let b = 12
-  
-    let We(n) = {
-      return x => (range(1, n + 1).map(i => (calc.pow(a, i)) * calc.cos(calc.pow(b, i) * x * calc.pi)).sum() )
-    }
-  
-    if PLOTS {
-      plot.plot(size: (10,8), axis-style: "school-book", plot-style: (stroke: blue.transparentize(50%)), y-label: "W(x)", {
-        plot.add(domain: (-0.8, 0.8), samples: 250, axes: ("x", "y"), We(15))
-      })
-    } else {
-       content((0, 0), text(red)[Gràfiques desactivades])
-    }
-    
-  })
-] <fig-grafica-weierstrass>
-
-
-La funció de Weierstrass (@fig-grafica-weierstrass) va tenir tal impacte en les matemàtiques de l'època, que Poincaré es va referir a aquesta funció com un "monstre" i un "ultratge contra el sentit comú". Lògicament, els matemàtics ja coneixien funcions que tenien un conjunt de punts aïllats no derivables; però l'existència d'una funció no derivable gairebé enlloc implicava que la proposició en què es basava el càlcul era falsa ---que qualsevol funció contínua és derivable gairebé pertot---, per culpa de les definicions imprecises i demostracions que abusaven de la intuïció.
+La funció de Weierstrass (@fig-grafica-weierstrass, als annexos) va tenir tal impacte en les matemàtiques de l'època, que Poincaré es va referir a aquesta funció com un "monstre" i un "ultratge contra el sentit comú". Lògicament, els matemàtics ja coneixien funcions que tenien un conjunt de punts aïllats no derivables; però l'existència d'una funció no derivable gairebé enlloc implicava que la proposició en què es basava el càlcul era falsa ---que qualsevol funció contínua és derivable gairebé pertot---, per culpa de les definicions imprecises i demostracions que abusaven de la intuïció.
 
 Aquesta fita va ser una autèntica lliçó per als matemàtics; mostrava com d'important era mantenir la rigorositat i no fer masses suposicions de les quals més tard ens podem penedir. En tot cas, la funció de Weierstrass obria les portes a un nou món matemàtic, el món de les corbes infinitament rugoses./*; és a dir, les fractals. De fet, avui dia la seva gràfica es consideraria un objecte fractal. */
 
@@ -166,11 +124,11 @@ Aquesta fita va ser una autèntica lliçó per als matemàtics; mostrava com d'i
 
 La funció de Weierstrass va començar a despertar la curiositat en el "món rugós"; durant les següents dècades, es van idear nous objectes matemàtics que van anar construint la geometria fractal com la coneixem avui dia.
 
-Georg Cantor, el pare de la teoria de conjunts, qui va assistir a les classes de Weierstrass, va crear el 1883 una funció $psi$ amb unes característiques molt interessants, definida a l'interval $[0, 1]$: conté diverses simetries entre punts i és derivable gairebé pertot, excepte un conjunt de punts molt concrets, que anomenem conjunt de Cantor (vegeu @cap-cantor).
+Georg Cantor, el pare de la teoria de conjunts, qui va assistir a les classes de Weierstrass, va crear el 1883 una funció $psi$ amb unes característiques molt interessants, definida a l'interval $[0, 1]$: conté diverses simetries entre punts i és derivable gairebé pertot, excepte un conjunt de punts molt concrets, que anomenem conjunt de Cantor (#pritable-doclink(<cap-cantor>)).
 
 A principis del segle XX, el 1904 Hedge von Koch va proposar una altra forma de trobar una corba contínua però no derivable. A diferència de Weierstrass, que ho feia de forma totalment analítica, l'enfocament de Koch era purament geomètric, de forma que la no derivabilitat de l'objecte és òbvia (encara que no és trivial demostrar-la formalment). Es tracta de la corba de Koch, que unida amb dos més objectes iguals, forma el floc de neu de Koch. 
 
-Aquest últim objecte es construeix amb un algorisme geomètric recursiu, és a dir, l'objecte és conté a si mateix. D'aquesta manera, la corba de Koch és el límit a l'infinit de realitzar l'algorisme infinites vegades (simbòlicament, $C = lim_(n->+infinity) C_n$). Aquest mètode de generació s'anomena sistemes de funcions iterades (IFS), que s'estudia en detall més endavant.
+Aquest últim objecte es construeix amb un algorisme geomètric recursiu, és a dir, l'objecte és conté a si mateix. D'aquesta manera, la corba de Koch és el límit a l'infinit de realitzar l'algorisme infinites vegades (simbòlicament, $C = lim_(n->+infinity) C_n$). Aquest mètode de generació s'anomena sistemes de funcions iterades (IFS), que s'estudia en detall més endavant (#pritable-doclink(<cap-ifs>)).
 /*
 $
 psi'(x) = cases(0 wide& "si" x in.not C,+infinity & "si" x in C) 
@@ -228,28 +186,26 @@ El matemàtic polonès Benoît Mandelbrot (1924#{sym.dash.en}2010) també va com
 
 Aquesta nova perspectiva es va veure reflectida en el seu article _How Long is the Coast of Britain? Statistical Self-Similarity and Fractional Dimension_ (en català, _Quina és la longitud de la costa de Gran Bretanya? Autosimilitud estadística i dimensió fraccionària_) @Mandelbrot1967, en què estudiava la rugositat ("el grau de complicació") de les corbes geogràfiques. Mandelbrot va proposar una dimensió $D$ que mesura aquesta complicació.
 
-L'objectiu de Mandelbrot era mirar la realitat d'una forma diferent; deixar enrere les imprecisions i convencions del càlcul i tractar el món tal com és: rugós, imperfecte i no derivable. El polonès criticava la certa obsessió dels seus companys de professió per l'abstracció i el formalisme, que no permetia a les matemàtiques poder reflectir el món adequadament.#todo[Cita de Mandelbrot que ho demostri.]
+L'objectiu de Mandelbrot era mirar la realitat d'una forma diferent; deixar enrere les imprecisions i convencions del càlcul i tractar el món tal com és: rugós, imperfecte i no derivable. El polonès criticava la certa obsessió dels seus companys de professió per l'abstracció i el formalisme, que no permetia a les matemàtiques poder reflectir el món adequadament.
 
 Tots els objectes matemàtics exposats fins ara no tenien una categoria en comú; eren només "monstres", com deia Poincaré, que tenien propietats estranyes. /*Els lectors s'hauran adonat que, des del començament d'aquest capítol sobre la història de la geometria fractal, encara no hem fet servir el terme _fractal_---*/I és que no va ser fins el 1975 quan Mandelbrot va introduir els termes _fractal_ i _objecte fractal_, permetent als matemàtics finalment referir-se aquestes formes geomètriques. Per aquest motiu, sovint es parla de Mandelbrot com al "pare dels fractals".
 
-Tota la seva feina va quedar exposada el 1982 en el seu llibre _The fractal geometry of nature_ ---que és, de fet, una de les fonts principals d'aquest treball.
+Tota la seva feina va quedar exposada el 1982 en el seu llibre _The Fractal Geometry of Nature_ ---que és, de fet, una de les fonts principals d'aquest treball.
 
 
 == La geometria fractal a la natura
-
-
 
 La geometria fractal és un dels camps de les matemàtiques que més ha despertat la curiositat del públic per la seva bellesa, així com per la seva omnipresència a la natura. Es solen associar les fractals amb formes com flocs de neu (@floc_de_neu) i cols autosimilars (@romanesco), però es poden trobar característiques fractals a molts altres racons del món real.
 
 #grid(columns: (1fr, 1fr), gutter: 2em)[
   #figure(caption: [Floc de neu. _Domini públic._])[
-    #image("../images/floc de neu.png", height: 150pt)
+    #image("../images/floc de neu.png", height: 130pt)
   ] <floc_de_neu>
 ][
   #figure(caption: [
     Patrons fractals en un cristall congelat. _By Schnobby - Own work, CC BY-SA 3.0, \<https://commons.wikimedia.org/w/index.php?curid=19055302>_
   ])[
-    #image("../images/cristall congelat (Schnobby).png", height: 150pt)
+    #image("../images/cristall congelat (Schnobby).png", height: 130pt)
   ] <cristall_congelat>
 ][
   #figure(
@@ -257,26 +213,27 @@ La geometria fractal és un dels camps de les matemàtiques que més ha desperta
       Un romanesco, un tipus de col que presenta autosimilitud. _Ioangogo - Own work, CC BY-SA 4.0, \<https://commons.wikimedia.org/w/index.php?curid=39553243>_
     ]
   )[
-    #image("../images/romanesco (loangogo).png", width: 200pt, height: 150pt)
+    #image("../images/romanesco (loangogo).png", width: 200pt, height: 130pt)
   ] <romanesco>
 ][
   #figure(caption: [
     Dendrita d'òxid de manganès formada en pedra calcària. Escala en mil·límetres. _Mark A. Wilson (Department of Geology, The College of Wooster)._
   ])[
-    #image("../images/dendrites (Wilson).png", width: 200pt, height: 150pt)
+    #image("../images/dendrites (Wilson).png", width: 200pt, height: 130pt)
   ] <dendrita>
 ]
 
+Les fractals són una bona representació de la realitat. Si bé la geometria euclidiana, a la qual estem acostumats, acaba sent llisa quan ens hi apropem prou, això no representa amb precisió el món natural. La geometria fractal té un enfocament diferent i considera que les formes no són llises, sinó infinitament rugoses. Aquesta postura més realista i propera al món real contrasta amb la moltes altres branques de les matemàtiques, que són més difícils de relacionar directament amb la natura. Això, a més, fa que la geometria fractal sigui un d'aquells conceptes matemàtics que, quan hom els coneix amb profunditat, els observa a tota la realitat.
 
-És incorrecte, tanmateix, pensar que tota la geometria fractal es basa en fenòmens naturals. Com Mandelbrot mateix explica, aquesta branca de les matemàtiques va ser una conseqüència dels "monstres" concebuts a finals del segle XIX, exposats a la secció anterior.
+Ara bé, cal remarcar que són representacions: les formes fractals, també, són una aproximació de la realitat, ja que no existeix realment la rugositat infinita (una mateixa forma no es pot repetir). Els fenòmens que es poden veure a les figures es considera que exhibeixen un comportament fractal, però no es poden anomenar fractals estrictament parlant.
 
-De totes formes, les fractals són una bona representació de la realitat. Si bé la geometria euclidiana, a la qual estem acostumats, acaba sent llisa quan ens hi apropem prou, això no representa amb precisió el món natural. La geometria fractal té un enfocament diferent i considera que les formes no són llises, sinó infinitament rugoses. Aquesta postura més realista i propera al món real contrasta amb la moltes altres branques de les matemàtiques, que són més difícils de relacionar directament amb la natura. Això, a més, fa que la geometria fractal sigui un d'aquells conceptes matemàtics que, quan hom els coneix amb profunditat, els observa a tota la realitat.
+Tanmateix, com Mandelbrot aclareix al principi del seu llibre, la geometria fractal no es basa en fenòmens naturals. Com Mandelbrot mateix explica, aquesta branca de les matemàtiques va ser una conseqüència dels "monstres" concebuts a finals del segle XIX, exposats a la secció anterior. I aquestes matemàtiques són les que s'exploraran al llarg d'aquest treball.
 
 
 == Característiques de les fractals
 
 
-El terme _fractal_ (que en català és un mot femení), com s'ha mostrat, va ser creat per Mandelbrot, a partir de la paraula llatina _frāctus_. Mandelbrot va optar per no definir formalment el terme, sinó associar-hi unes propietats @falconer @Mandelbrot1987:
+El terme _fractal_ (que en català és un mot femení), com s'ha mostrat, va ser creat per Mandelbrot, a partir de la paraula llatina _frāctus_. Si bé inicialment va definir el terme com un conjunt en què la dimensió de Hausdorff és inferior a la dimensió topològica, el consens actual és que no s'hauria de definir concretament, sinó associar-hi unes propietats @falconer @Mandelbrot1987:
 
 - *Irregularitat geomètrica.* Alguns objectes fractals no es poden descriure completament a partir de la geometria euclidiana convencional, si no és amb una definició recursiva.
 
@@ -292,11 +249,11 @@ El terme _fractal_ (que en català és un mot femení), com s'ha mostrat, va ser
 
   Aquesta característica resulta, a la vegada, útil i problemàtica. És útil perquè facilita molt la seva representació ---són increïblement senzilles de generar amb un llenguatge de programació---, però és problemàtica perquè aleshores és més complicat trobar l'explicació de les formes que es troben a fractals com la de Mandelbrot o Newton.
 
-- *Dificultats en la mesura.* Sovint resulta inútil realitzar mesures comunes com la llargada o l'àrea en els objectes fractals, ja que aquestes són o bé impossibles de fer o resulten en valors nuls o infinits, en el cas de les corbes fractals. Seguint l'exemple anterior, la llargada costa augmenta sense límit quan augmentem la precisió.
+- *Dificultats en la mesura.* Sovint resulta inútil realitzar mesures comunes com la llargada o l'àrea en els objectes fractals, ja que aquestes són o bé impossibles de fer o resulten en valors nuls o infinits, en el cas de les corbes fractals. Seguint l'exemple anterior, la llargada d'una costa augmenta sense límit quan augmentem la precisió.
 
 El terme s'utilitza de forma àmplia per designar qualsevol forma geomètrica que presenti alguna de les propietats anteriors, especialment l'autosimilitud i l'estructura detallada minúscula.
 
-A la @cap-exemple-gen-fractal teniu un exemple de fractal autosimilar i amb detall infinit, generat iterativament.
+//A la @cap-exemple-gen-fractal teniu un exemple de fractal autosimilar i amb detall infinit, generat iterativament.
 
 #figure(caption:[Un segment qualsevol és autosimilar, però no té estructura detallada infinita, així que no es consideraria un fractal.] ,
   box(
