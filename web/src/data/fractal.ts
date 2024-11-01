@@ -20,3 +20,16 @@ export class Fractal implements FractalView {
 		this.drawFunc = drawFunc;
 	}
 }
+
+/*
+
+
+Fitxa del fractal:
+
+Dimensió
+
+IFS
+
+Sistema de Leidenmeyer
+
+ */
