@@ -1,24 +1,35 @@
-import type { FractalView } from '@data/types.ts';
+//type DrawFunction = (canvas: HTMLCanvasElement) => void
 
-type DrawFunction = (canvas: HTMLCanvasElement) => void
-
-/*
-
- */
-export class Fractal implements FractalView {
+export interface FractalInfo {
 	name: string;
 	id: string;
 	descr: string;
 	thumbnailPath: string;
-	drawFunc: DrawFunction;
 
-	constructor(name: string, id: string, descr: string, thumbnailPath: string, drawFunc: DrawFunction) {
-		this.name = name;
-		this.id = id;
-		this.descr = descr;
-		this.thumbnailPath = thumbnailPath;
-		this.drawFunc = drawFunc;
-	}
+	/*
+    getShaders() {
+        return (Object.keys(shaderTypes) as (keyof typeof shaderTypes)[]).map(
+            async (type) => ({
+                source: (await import(`../opengl/${this.id}/${this.id}.${shaderTypes[type].extension}?raw`)).default as string,
+                type,
+            })
+        )
+    }
+    */
+
+	/*
+        begin(canvas: HTMLCanvasElement) {
+            let gl = canvas.getContext("webgl2")
+            if (!gl) {
+                alert("El teu navegador no funciona amb WebGL2");
+                return
+            }
+
+            let program = new Fractal;
+
+        }
+
+    */
 }
 
 /*

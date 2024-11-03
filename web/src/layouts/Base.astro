@@ -1,5 +1,6 @@
 ---
 import { GoogleFontsOptimizer } from 'astro-google-fonts-optimizer';
+import { ViewTransitions } from 'astro:transitions';
 import '../style/main.css';
 
 const SITE_NAME = 'Explorador de fractals';
@@ -22,6 +23,7 @@ title = SITE_NAME + (title ? ' - ' + title : '');
 		<GoogleFontsOptimizer
 			url="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
 		/>
+		<ViewTransitions />
 	</head>
 	<body class="bg-primary-950 font-serif">
 		<slot />

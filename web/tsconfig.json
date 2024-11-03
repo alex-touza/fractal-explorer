@@ -19,6 +19,12 @@
       ],
       "@style/*": [
         "src/style/*"
+      ],
+      "@opengl/*": [
+        "src/opengl/*"
+      ],
+      "@/*": [
+        "src/*"
       ]
     },
     "plugins": [

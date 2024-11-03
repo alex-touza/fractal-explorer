@@ -1,0 +1,16 @@
+---
+import Fractal from '@/layouts/Fractal.astro';
+import { helloWorld } from '../../data/fractals';
+---
+
+<Fractal fractal={helloWorld} />
+
+<script>
+	import { HelloWorldFractal } from '../../opengl/helloWorld/helloWorld';
+
+	const fractal = new HelloWorldFractal();
+
+	fractal.begin(document.getElementById('canvas') as HTMLCanvasElement);
+
+	fractal.draw();
+</script>
