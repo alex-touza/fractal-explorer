@@ -12,16 +12,8 @@ export const mandelbrot = {
 	thumbnailPath: 'mandelbrot.webp',
 };
 
-export const helloWorld = {
-	name: 'Hello World',
-	id: 'helloWorld',
-	descr: '',
-	thumbnailPath: '',
-};
-
 export const fractals: FractalInfo[] = [
 	mandelbrot,
-	helloWorld,
 
 	/*{
         name: 'Fractal de Newton',

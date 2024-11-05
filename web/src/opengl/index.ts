@@ -1,16 +1,31 @@
 import { shaderTypes } from './shaderTypes.ts';
 import type { FractalInfo } from '@data/fractal.ts';
+import type { WheelEvent } from 'react';
 
-export abstract class Fractal {
+let displayWidth: number, displayHeight: number;
+
+export interface FractalDataset extends DOMStringMap {
+	zoom: string;
+	offsetX: string;
+	offsetY: string;
+}
+
+export interface FractalCanvas<Dataset extends FractalDataset = FractalDataset>
+	extends HTMLCanvasElement {
+	dataset: Dataset;
+}
+
+export abstract class Fractal<Dataset extends FractalDataset = FractalDataset> {
 	public id: string;
 	public info: FractalInfo;
 
 	protected context: WebGL2RenderingContext | null = null;
-	protected canvas: HTMLCanvasElement | null = null;
+	protected canvas: FractalCanvas<Dataset> | null = null;
 	protected program: WebGLProgram | null = null;
 	public shaders: [keyof typeof shaderTypes, string][];
 
 	protected uniforms: Map<string, WebGLUniformLocation> = new Map();
+	protected attributes: Map<string, GLint> = new Map();
 
 	private loadShader(shaderType: keyof typeof shaderTypes, source: string) {
 		if (this.context === null) throw 'context is null';
@@ -36,10 +51,8 @@ export abstract class Fractal {
 
 	// https://webgl2fundamentals.org/webgl/lessons/webgl-resizing-the-canvas.html
 	protected resizeCanvas() {
-		if (this.canvas === null) throw 'canvas is null';
-
-		const displayWidth = this.canvas.clientWidth;
-		const displayHeight = this.canvas.clientHeight;
+		console.log('resizeCanvas');
+		if (!this.canvas) throw 'canvas is null';
 
 		const needResize =
 			this.canvas.width !== displayWidth ||
@@ -50,6 +63,8 @@ export abstract class Fractal {
 			this.canvas.height = displayHeight;
 		}
 
+		this.context!.viewport(0, 0, displayWidth, displayHeight);
+
 		return needResize;
 	}
 
@@ -58,6 +73,15 @@ export abstract class Fractal {
 		if (loc === null) throw 'location is null';
 
 		this.uniforms.set(name, loc);
+
+		return loc;
+	}
+
+	protected newAttribute(name: string): GLint {
+		const loc = this.context!.getAttribLocation(this.program!, name);
+		if (loc === null) throw 'location is null';
+
+		this.attributes.set(name, loc);
 
 		return loc;
 	}
@@ -72,19 +96,83 @@ export abstract class Fractal {
 		this.shaders = shaders;
 	}
 
-	public begin(canvas: HTMLCanvasElement) {
+	public begin(canvas: FractalCanvas<Dataset>) {
 		this.canvas = canvas;
 		this.context = this.canvas.getContext('webgl2')!;
-		this.program = this.context.createProgram();
+		this.program = this.context!.createProgram();
 
 		if (!this.program || !this.context) throw 'program or context null';
 
+		this.canvas.addEventListener('wheel', (_event: Event) => {
+			let event: WheelEvent = _event as unknown as WheelEvent;
+
+			if (!this.canvas) return;
+
+			let zoomDelta = event.deltaY > 0 ? 1.2 : 0.8;
+
+			let dataset = this.canvas!.dataset;
+
+			dataset.zoom = String(zoomDelta * parseFloat(dataset.zoom));
+
+			dataset.offsetX = String(
+				parseFloat(dataset.offsetX) +
+					((event.clientX - this.canvas?.width / 2) / this.canvas!.width) *
+						parseFloat(dataset.zoom),
+			);
+
+			dataset.offsetY = String(
+				parseFloat(dataset.offsetY) +
+					((-event.clientY + this.canvas?.height / 2) / this.canvas!.height) *
+						parseFloat(dataset.zoom),
+			);
+
+			console.log(
+				'wheel',
+				event.clientX - this.canvas?.width / 2,
+				this.canvas?.dataset.zoom,
+			);
+			requestAnimationFrame(() => this.draw());
+		});
+
+		const resizeObserver = new ResizeObserver((entries) => {
+			console.log('resizeObserver triggered');
+			for (const entry of entries) {
+				let width;
+				let height;
+				let dpr = window.devicePixelRatio;
+				if (entry.devicePixelContentBoxSize) {
+					// NOTE: Only this path gives the correct answer
+					// The other paths are imperfect fallbacks
+					// for browsers that don't provide anyway to do this
+					width = entry.devicePixelContentBoxSize[0].inlineSize;
+					height = entry.devicePixelContentBoxSize[0].blockSize;
+					dpr = 1; // it's already in width and height
+				} else if (entry.contentBoxSize) {
+					if (entry.contentBoxSize[0]) {
+						width = entry.contentBoxSize[0].inlineSize;
+						height = entry.contentBoxSize[0].blockSize;
+					} else {
+						width = entry.contentBoxSize.inlineSize;
+						height = entry.contentBoxSize.blockSize;
+					}
+				} else {
+					width = entry.contentRect.width;
+					height = entry.contentRect.height;
+				}
+				displayWidth = Math.round(width * dpr);
+				displayHeight = Math.round(height * dpr);
+			}
+
+			requestAnimationFrame(() => this.draw());
+		});
+		resizeObserver.observe(canvas, { box: 'content-box' });
+
+		// Carregar shaders
 		this.shaders.forEach(([type, source]) => {
 			let shader = this.loadShader(type, source);
 			if (!shader) return;
 			this.context!.attachShader(this.program!, shader);
 		});
-
 		this.context.linkProgram(this.program);
 
 		if (
@@ -95,58 +183,41 @@ export abstract class Fractal {
 			);
 			this.context.deleteProgram(this.program);
 		}
+
+		// Propietats canòniques
+		this.newUniform('uZoom');
+		this.newUniform('uResolution');
+		this.newUniform('uOffset');
+	}
+
+	protected assignCanonicalUniforms() {
+		if (this.context === null) throw 'context null';
+		if (this.canvas === null) throw 'canvas null';
+
+		this.context.uniform2f(
+			this.uniforms.get('uResolution')!,
+			this.context.canvas.width,
+			this.context.canvas.height,
+		);
+		this.context.uniform2f(
+			this.uniforms.get('uOffset')!,
+			parseFloat(this.canvas.dataset.offsetX),
+			parseFloat(this.canvas.dataset.offsetY),
+		);
+		this.context.uniform1f(
+			this.uniforms.get('uZoom')!,
+			parseFloat(this.canvas.dataset.zoom),
+		);
+	}
+
+	public draw() {
+		if (this.context === null) throw 'context null';
+
+		this.resizeCanvas();
+
+		this.context.clearColor(0, 0, 0, 0);
+		this.context.clear(this.context.COLOR_BUFFER_BIT);
+
+		this.context.useProgram(this.program);
 	}
 }
-/*
-function init(gl: WebGL2RenderingContext) {
-    gl.clearColor(0.0, 0.0, 0.0, 1.0);
-
-    gl.clear(gl.COLOR_BUFFER_BIT);
-}
-
-
-function initShaderProgram(gl: WebGL2RenderingContext, vsSource: string, fsSource: string) {
-    const vertexShader = loadShader(gl, gl.VERTEX_SHADER, vsSource)!;
-    const fragmentShader = loadShader(gl, gl.FRAGMENT_SHADER, fsSource)!;
-
-    // Create the shader program
-
-    const shaderProgram = gl.createProgram()!;
-    gl.attachShader(shaderProgram, vertexShader);
-    gl.attachShader(shaderProgram, fragmentShader);
-    gl.linkProgram(shaderProgram);
-
-    // If creating the shader program failed, alert
-
-    if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
-        alert(
-            `Unable to initialize the shader program: ${gl.getProgramInfoLog(
-                shaderProgram,
-            )}`,
-        );
-        return null;
-    }
-
-    return shaderProgram;
-}
-function loadShader(gl: WebGL2RenderingContext, type: number, source: string) {
-    const shader = gl.createShader(type)!;
-
-    gl.shaderSource(shader, source);
-
-    gl.compileShader(shader);
-
-    // See if it compiled successfully
-
-    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-        alert(
-            `An error occurred compiling the shaders: ${gl.getShaderInfoLog(shader)}`,
-        );
-        gl.deleteShader(shader);
-        return null;
-    }
-
-    return shader;
-}
-
- */
