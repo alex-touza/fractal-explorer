@@ -1,40 +1,45 @@
+#version 300 es
+
 precision highp float;
 
-uniform float time;
-varying vec2 fractal_position;
+uniform vec2 uResolution;
 
-const vec4 K = vec4(1.0, 0.66, 0.33, 3.0);
+// Control de la posició en el pla complex
+uniform float uZoom;
+uniform vec2 uOffset;
 
-vec4 hsv_to_rgb(float hue, float saturation, float value) {
-    vec4 p = abs(fract(vec4(hue) + K) * 6.0 - K.wwww);
-    return vec4(value * mix(K.xxx, clamp(p.xyz - K.xxx, 0.0, 1.0), saturation), 1.0);
-}
 
-vec4 i_to_rgb(int i) {
-    float hue = float(i) / 100.0 + sin(time);
-    return hsv_to_rgb(hue, 0.5, 0.8);
-}
+uniform int uMaxIterations;
 
-vec2 pow_2_complex(vec2 c) {
-    //return vec2(c.x*c.x - c.y*c.y, sin(time) * 2.0 * c.x * c.y);
-    return vec2(c.x*c.x - c.y*c.y, 2.0 * c.x * c.y);
-}
+out vec4 outColor;
 
-vec2 mandelbrot(vec2 c, vec2 c0) {
-    return pow_2_complex(c) + c0;
-}
-
-vec4 iterate_pixel(vec2 position) {
-    vec2 c = vec2(0);
-    for (int i=0; i < 100; i++) {
-        if (c.x*c.x + c.y*c.y > 2.0*2.0) {
-            return i_to_rgb(i);
-        }
-        c = mandelbrot(c, position);
-    }
-    return vec4(0, 0, 0, 1);
+vec3 hsv2rgb(vec3 c)
+{
+    vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+    vec3 p = abs(fract(c.xxx + K.xyz) * 6.0 - K.www);
+    return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
 }
 
 void main() {
-    gl_FragColor = iterate_pixel(fractal_position);
+    //vec2 c = (gl_FragCoord.xy / uResolution - vec2(0.5)) * vec2((uResolution.x / uResolution.y) * uZoom, uZoom) + uOffset;
+
+    vec2 c = uZoom * vec2((gl_FragCoord.x - 0.5 * uResolution.x) / uResolution.y, gl_FragCoord.y / uResolution.y - 0.5) + uOffset;
+
+
+    vec2 z = vec2(0.0);
+
+    int iterations;
+
+    for (iterations = 0; iterations < uMaxIterations; ++iterations) {
+       z = vec2(z.x * z.x - z.y * z.y, 2.0 * z.x * z.y) + c;
+
+        if (dot(z, z) > 100.0) {
+            outColor = vec4(hsv2rgb(vec3(float(iterations) / 100.0 + 5.0, 1, 0.68)), 1.0);
+            return;
+        }
+    }
+
+    outColor = vec4(0.0, 0.0, 0.0, 1.0);
+
+
 }
