@@ -106,6 +106,8 @@ export abstract class Fractal<Dataset extends FractalDataset = FractalDataset> {
 		this.canvas.addEventListener('wheel', (_event: Event) => {
 			let event: WheelEvent = _event as unknown as WheelEvent;
 
+			console.log(event.clientX, event.clientY)
+
 			if (!this.canvas) return;
 
 			let zoomDelta = event.deltaY > 0 ? 1.2 : 0.8;
