@@ -1,4 +1,4 @@
-#import "src/environments.typ": *
+  #import "src/environments.typ": *
 #import "src/utilities.typ": *
 #import "src/style/headings.typ": *
 #import "src/style/page.typ": *

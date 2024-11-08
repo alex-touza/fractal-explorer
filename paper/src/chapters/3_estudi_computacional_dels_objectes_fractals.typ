@@ -8,9 +8,9 @@
 
 En aquest últim capítol, s'exposaran breument algunes tècniques de generació de fractals mitjançant programes informàtics. Primer, estudiarem la generació de fractals simples, i després, la generació de fractals més complexes.
 
-== Generació de fractals simples
+//== Generació de fractals simples
 
-=== Recursivitat
+== Algorismes recursius
 La tècnica més emprada per generar fractals simples és la recursivitat, ja que la pròpia definició de moltes d'elles la fa servir. Les tres fractals generades íntegrament en aquesta memòria ---el conjunt de Cantor (@fig-cantor), el triangle de Sierpinski (@fig-sierpinski) i la corba de Koch (@fig-koch-iteracions)--- fan servir recursivitat.
 
 En informàtica, la recursivitat distingeix dos conceptes: el _cas base_, que és un valor fix conegut per a algun valor de variable independent, i el _cas recursiu_, que es defineix fent ús del propi algoritme. L'exemple clàssic és la computació del factorial, però aquí en mostrarem un de més interessant: la computació dels nombres combinatoris. Pel triangle de Pascal o de Tartaglia, tenim la següent relació de recurrència (que és el cas recursiu) $ vec(n, k) = vec(n-1, k-1) + vec(n-1, k) $
@@ -54,9 +54,9 @@ Per exemple, aquest és el pseudocodi per al triangle de Sierpinski, que començ
   + *end*
 ]
 
-=== Geometria analítica
+== Aplicació de geometria analítica
 
-Tant la construcció intuïtiva com l'algoritme de generació del triangle de Sierpinski són bastant trivials. En canvi, altres fractals, com la corba de Koch, tenen una implementació més complicada tot i tenir una construcció geomètrica simple. Una forma de traduir els passos d'alt nivell de la construcció a un altre algoritme que el pugui entendre l'ordinador, és fer servir la geometria analítica. Convertint cada pas a una operació vectorial o matricial es pot escriure més còmodament el codi per a la fractal.
+Tant la construcció intuïtiva com l'algoritme de generació del triangle de Sierpinski són bastant trivials. En canvi, altres fractals, com la corba de Koch, tenen una implementació més complicada tot i tenir una construcció geomètrica simple. Una forma de traduir els passos d'alt nivell de la construcció a un altre algoritme que pugui entendre l'ordinador, és fer servir la geometria analítica. Convertint cada pas a una operació vectorial o matricial es pot escriure més còmodament el codi per a la fractal.
 
 Es mostra aquí el pseudocodi per la corba de Koch:
 
@@ -83,6 +83,23 @@ Es mostra aquí el pseudocodi per la corba de Koch:
       + koch $1, b, i$
     + *end*
 ]
+
+== Gràfics _turtle_
+
+=== Funcionament
+
+== Sistemes de Lindenmayer
+
+=== Funcionament
+
+==== Motivació
+
+==== Definició formal
+
+==== Exemple senzill
+
+===
+
 /*
 === Punt  mòbil
 Una tècnica útil per generar alguns fractals és el punt mòbil. Consisteix en mantenir una posició per saber on començar a dibuixar la fractal. L'avantatge d'aquest mètode és que és ben senzill d'aplicar sense recursivitat, però és només útil per a fractals molt simples. Vegem un exemple.
@@ -126,7 +143,7 @@ $
   ]
 ]
 */
-== Generació de fractals complexos
+== Generació de fractals no lineals
 
 Fins ara hem mostrat només fractals estrictament geomètrics. En fractals més complexes#footnote[_No pun intended._], com els conjunts de Julia, l'algoritme té un enfocament bastant diferent per la seva naturalesa. S'ha d'executar un algorisme per a cadascun del punts del pla, cosa que és molt costosa.
 

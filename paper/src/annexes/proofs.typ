@@ -90,7 +90,7 @@ Per reduir la llargada del cos principal del treball, es presenten aquí demostr
   lim_(s->+infinity) f(s) = lim_(s->+infinity) sum^n_(i=1) r_i^s = 0
   $
 
-  Pel teorema del valor mitjà, com que $f$ és contínua, la funció passa per tots els valors a l'interval $(0, +infinity)$ i per tant sabem que ha d'haver-hi almenys un valor $s$ tal que $f(s)=1$. Calculem la derivada de $f$:
+  Pel teorema del valor mitjà, com que $f$ és contínua, la funció passa per tots els valors a l'interval $(0, n)$ i per tant sabem que ha d'haver-hi almenys un valor $s$ tal que $f(s)=1$. Calculem la derivada de $f$:
 
   $
   f'(x) = sum^n_(i=1) r_i^s ln(r_i)

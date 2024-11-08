@@ -269,13 +269,13 @@
   })
 }
 
-#let koch-snowflake(size: 10, sides: 5, n: 5) = {
+#let koch-snowflake(func: i => draw.set-style(stroke: blue.lighten(18%*i)), size: 10, sides: 5, n: 5) = {
   //let base_points = ((0, 0), (-1.55, 4.76), (2.5, 7.69), (6.55, 4.76), (5, 0))
   canvas({
     let i = 0
     for f in (0.2, 0.4, 0.7, 1.2) {
       i += 1
-      draw.set-style(stroke: blue.lighten(18%*i))
+      func(i)
       let points = reg_polygon(sides, f*size)
       
       for i in range(points.len()) {
