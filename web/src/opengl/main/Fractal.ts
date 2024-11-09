@@ -1,6 +1,7 @@
-import { shaderTypes } from './shaderTypes.ts';
+import { shaderTypes } from '../shaderTypes.ts';
 import type { FractalInfo } from '@data/fractal.ts';
 import type { WheelEvent } from 'react';
+import { Uniform1f, Uniform2f, type Uniforms } from '@opengl/main/Uniforms.ts';
 
 let displayWidth: number, displayHeight: number;
 
@@ -19,13 +20,33 @@ export abstract class Fractal<Dataset extends FractalDataset = FractalDataset> {
 	public id: string;
 	public info: FractalInfo;
 
-	protected context: WebGL2RenderingContext | null = null;
-	protected canvas: FractalCanvas<Dataset> | null = null;
-	protected program: WebGLProgram | null = null;
+	public context: WebGL2RenderingContext | null = null;
+	public canvas: FractalCanvas<Dataset> | null = null;
+	public program: WebGLProgram | null = null;
 	public shaders: [keyof typeof shaderTypes, string][];
 
-	protected uniforms: Map<string, WebGLUniformLocation> = new Map();
+	protected uniforms: Uniforms[] = [
+		new Uniform2f('uResolution', () => [
+			this.context!.canvas.width,
+			this.context!.canvas.height,
+		]),
+		new Uniform1f('uZoom', 1.0),
+		new Uniform2f('uPosition', 0.0, 0.0),
+	];
+
 	protected attributes: Map<string, GLint> = new Map();
+
+	protected constructor(
+		id: string,
+		info: FractalInfo,
+		shaders: [keyof typeof shaderTypes, string][],
+		uniforms: Uniforms[] = [],
+	) {
+		this.id = id;
+		this.info = info;
+		this.shaders = shaders;
+		this.uniforms.push(...uniforms);
+	}
 
 	private loadShader(shaderType: keyof typeof shaderTypes, source: string) {
 		if (this.context === null) throw 'context is null';
@@ -68,15 +89,16 @@ export abstract class Fractal<Dataset extends FractalDataset = FractalDataset> {
 		return needResize;
 	}
 
-	protected newUniform(name: string): WebGLUniformLocation {
-		const loc = this.context!.getUniformLocation(this.program!, name);
-		if (loc === null) throw 'location is null';
+	/*
+    protected newUniform(name: string): WebGLUniformLocation {
+        const loc = this.context!.getUniformLocation(this.program!, name);
+        if (loc === null) throw 'location is null';
 
-		this.uniforms.set(name, loc);
+        this.uniforms.set(name, loc);
 
-		return loc;
-	}
-
+        return loc;
+    }
+*/
 	protected newAttribute(name: string): GLint {
 		const loc = this.context!.getAttribLocation(this.program!, name);
 		if (loc === null) throw 'location is null';
@@ -86,14 +108,37 @@ export abstract class Fractal<Dataset extends FractalDataset = FractalDataset> {
 		return loc;
 	}
 
-	protected constructor(
-		id: string,
-		info: FractalInfo,
-		shaders: [keyof typeof shaderTypes, string][],
-	) {
-		this.id = id;
-		this.info = info;
-		this.shaders = shaders;
+	private onScroll(_event: Event) {
+		let event: WheelEvent = _event as unknown as WheelEvent;
+
+		console.log(event.clientX, event.clientY);
+
+		if (!this.canvas) return;
+
+		let zoomDelta = event.deltaY > 0 ? 1.2 : 0.8;
+
+		let dataset = this.canvas!.dataset;
+
+		dataset.zoom = String(zoomDelta * parseFloat(dataset.zoom));
+
+		dataset.offsetX = String(
+			parseFloat(dataset.offsetX) +
+				((event.clientX - this.canvas?.width / 2) / this.canvas!.width) *
+					parseFloat(dataset.zoom),
+		);
+
+		dataset.offsetY = String(
+			parseFloat(dataset.offsetY) +
+				((-event.clientY + this.canvas?.height / 2) / this.canvas!.height) *
+					parseFloat(dataset.zoom),
+		);
+
+		console.log(
+			'wheel',
+			event.clientX - this.canvas?.width / 2,
+			this.canvas?.dataset.zoom,
+		);
+		requestAnimationFrame(() => this.draw());
 	}
 
 	public begin(canvas: FractalCanvas<Dataset>) {
@@ -103,38 +148,7 @@ export abstract class Fractal<Dataset extends FractalDataset = FractalDataset> {
 
 		if (!this.program || !this.context) throw 'program or context null';
 
-		this.canvas.addEventListener('wheel', (_event: Event) => {
-			let event: WheelEvent = _event as unknown as WheelEvent;
-
-			console.log(event.clientX, event.clientY)
-
-			if (!this.canvas) return;
-
-			let zoomDelta = event.deltaY > 0 ? 1.2 : 0.8;
-
-			let dataset = this.canvas!.dataset;
-
-			dataset.zoom = String(zoomDelta * parseFloat(dataset.zoom));
-
-			dataset.offsetX = String(
-				parseFloat(dataset.offsetX) +
-					((event.clientX - this.canvas?.width / 2) / this.canvas!.width) *
-						parseFloat(dataset.zoom),
-			);
-
-			dataset.offsetY = String(
-				parseFloat(dataset.offsetY) +
-					((-event.clientY + this.canvas?.height / 2) / this.canvas!.height) *
-						parseFloat(dataset.zoom),
-			);
-
-			console.log(
-				'wheel',
-				event.clientX - this.canvas?.width / 2,
-				this.canvas?.dataset.zoom,
-			);
-			requestAnimationFrame(() => this.draw());
-		});
+		this.canvas.addEventListener('wheel', this.onScroll);
 
 		const resizeObserver = new ResizeObserver((entries) => {
 			console.log('resizeObserver triggered');
@@ -169,12 +183,12 @@ export abstract class Fractal<Dataset extends FractalDataset = FractalDataset> {
 		});
 		resizeObserver.observe(canvas, { box: 'content-box' });
 
-		// Carregar shaders
-		this.shaders.forEach(([type, source]) => {
+		for (let [type, source] of this.shaders) {
 			let shader = this.loadShader(type, source);
-			if (!shader) return;
+			if (!shader) throw 'no shader';
 			this.context!.attachShader(this.program!, shader);
-		});
+		}
+
 		this.context.linkProgram(this.program);
 
 		if (
@@ -186,30 +200,15 @@ export abstract class Fractal<Dataset extends FractalDataset = FractalDataset> {
 			this.context.deleteProgram(this.program);
 		}
 
-		// Propietats canòniques
-		this.newUniform('uZoom');
-		this.newUniform('uResolution');
-		this.newUniform('uOffset');
+		for (let uniform of this.uniforms) {
+			uniform.locate(this);
+		}
 	}
 
-	protected assignCanonicalUniforms() {
-		if (this.context === null) throw 'context null';
-		if (this.canvas === null) throw 'canvas null';
-
-		this.context.uniform2f(
-			this.uniforms.get('uResolution')!,
-			this.context.canvas.width,
-			this.context.canvas.height,
-		);
-		this.context.uniform2f(
-			this.uniforms.get('uOffset')!,
-			parseFloat(this.canvas.dataset.offsetX),
-			parseFloat(this.canvas.dataset.offsetY),
-		);
-		this.context.uniform1f(
-			this.uniforms.get('uZoom')!,
-			parseFloat(this.canvas.dataset.zoom),
-		);
+	protected assignUniforms() {
+		for (let uniform of this.uniforms) {
+			uniform.set(this);
+		}
 	}
 
 	public draw() {

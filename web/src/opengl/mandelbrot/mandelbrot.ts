@@ -1,4 +1,11 @@
-import { Fractal, type FractalCanvas, type FractalDataset } from '../index.ts';
+import {
+	Fractal,
+	type FractalCanvas,
+	type FractalDataset,
+	type Uniform,
+	Uniform1i,
+	Uniform2f,
+} from '../main/Fractal.ts';
 import { default as vertex } from './mandelbrot.vert?raw';
 import { default as fragment } from './mandelbrot.frag?raw';
 import { mandelbrot } from '@data/fractals.ts';
@@ -11,10 +18,19 @@ export class MandelbrotFractal extends Fractal<MandelbrotDataset> {
 	private buffer: WebGLBuffer | null = null;
 
 	public constructor() {
-		super('mandelbrot', mandelbrot, [
-			['fragment', fragment],
-			['vertex', vertex],
-		]);
+		super(
+			'mandelbrot',
+			mandelbrot,
+			[
+				['fragment', fragment],
+				['vertex', vertex],
+			],
+			[
+				new Uniform1i('uMaxIterations', () =>
+					parseInt(this.canvas?.dataset.maxIterations as string),
+				),
+			],
+		);
 	}
 
 	public override begin(canvas: FractalCanvas<MandelbrotDataset>) {
@@ -79,12 +95,7 @@ export class MandelbrotFractal extends Fractal<MandelbrotDataset> {
 			this.context.canvas.height,
 		);
 
-		this.context.uniform1i(
-			this.uniforms.get('uMaxIterations')!,
-			parseInt(this.canvas.dataset.maxIterations),
-		);
-
-		super.assignCanonicalUniforms();
+		super.assignUniforms();
 
 		// 6 = 2 triangles x 3 punts
 		this.context.drawArrays(this.context.TRIANGLES, 0, 6);
