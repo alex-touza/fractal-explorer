@@ -2,10 +2,6 @@ import { type Fractal } from '@opengl/main/Fractal.ts';
 
 type GLtypes = GLfloat | GLint;
 
-class MyClass {
-	public MyProp = '';
-}
-
 abstract class UniformBase<T extends [...GLtypes[]]> {
 	public name: string;
 	public values: T | [() => T];
@@ -27,12 +23,15 @@ abstract class UniformBase<T extends [...GLtypes[]]> {
 			this.name,
 		);
 		if (loc === null) throw 'location is null';
+
 		this.location = loc;
 	}
 
 	public set(fractal: Fractal) {
-		this.func(fractal.context!)(
-			this.name,
+		if (!this.location) throw 'location is null';
+
+		this.func(fractal).bind(fractal.context!)(
+			this.location,
 			...(typeof this.values[0] === 'function'
 				? this.values[0]()
 				: (this.values as T)),
@@ -40,23 +39,24 @@ abstract class UniformBase<T extends [...GLtypes[]]> {
 	}
 
 	protected abstract readonly func: (
-		context: WebGL2RenderingContext,
-	) => (name: string, ...values: T) => void;
+		fractal: Fractal,
+	) => (location: WebGLUniformLocation, ...values: T) => void;
 }
 
 export class Uniform1i extends UniformBase<[GLint]> {
-	protected readonly func = (context: WebGL2RenderingContext) =>
-		context.uniform1i;
+	protected readonly func = (fractal: Fractal) => fractal.context!.uniform1i;
 }
 
 export class Uniform1f extends UniformBase<[GLfloat]> {
-	protected readonly func = (context: WebGL2RenderingContext) =>
-		context.uniform1f;
+	protected readonly func = (fractal: Fractal) => fractal.context!.uniform1f;
 }
 
 export class Uniform2f extends UniformBase<[GLfloat, GLfloat]> {
-	protected readonly func = (context: WebGL2RenderingContext) =>
-		context.uniform2f;
+	protected readonly func = (fractal: Fractal) => fractal.context!.uniform2f;
 }
 
-export type Uniforms = Uniform1f | Uniform1i | Uniform2f;
+export class Uniform2i extends UniformBase<[GLfloat, GLfloat]> {
+	protected readonly func = (fractal: Fractal) => fractal.context!.uniform2i;
+}
+
+export type Uniforms = Uniform1f | Uniform1i | Uniform2f | Uniform2i;

@@ -61,10 +61,11 @@ console.log(fractalInfo);
 		>
 			{fractalInfo.name}
 		</h1>
-		<div class="floating-box absolute inset-y-0 left-0 w-48">
+		<div class="floating-box absolute inset-y-0 left-0 w-48 p-2">
 			<button class="w-full rounded-b-none font-semibold" id="homeBtn"
 				>Pàgina principal
 			</button>
+			<slot />
 		</div>
 		<div class="floating-box absolute bottom-0 right-0">
 			{
@@ -87,10 +88,5 @@ console.log(fractalInfo);
 	const homeBtn = document.getElementById('homeBtn') as HTMLButtonElement;
 	homeBtn.addEventListener('click', () => {
 		window.location.href = '/';
-	});
-
-	window.addEventListener('fractal-interact', (e) => {
-		// TODO - millorar type-safety creant un tipus específic de CustomEvent
-		console.log((e as CustomEvent).detail);
 	});
 </script>

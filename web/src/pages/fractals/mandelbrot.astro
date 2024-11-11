@@ -3,22 +3,17 @@ import Fractal from '@/layouts/Fractal.astro';
 import { mandelbrot } from '../../data/fractals';
 ---
 
-<Fractal fractalInfo={mandelbrot} />
+<Fractal fractalInfo={mandelbrot}>
+	<div>
+		<label for="iterationsSlider">Iteracions</label>
+		<input
+			type="range"
+			min="10"
+			max="1000"
+			id="iterationsSlider"
+			value="1000"
+		/>
+	</div>
+</Fractal>
 
-<script>
-	import {
-		MandelbrotFractal,
-		type MandelbrotDataset,
-	} from '../../opengl/mandelbrot/mandelbrot';
-	import { type FractalCanvas } from '../../opengl/main/Fractal';
-
-	const fractal = new MandelbrotFractal();
-
-	const canvas = document.getElementById(
-		'canvas',
-	) as FractalCanvas<MandelbrotDataset>;
-
-	fractal.begin(canvas);
-
-	requestAnimationFrame(() => fractal.draw());
-</script>
+<script src="../../opengl/mandelbrot/index.ts"></script>

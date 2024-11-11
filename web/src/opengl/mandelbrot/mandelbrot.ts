@@ -2,13 +2,13 @@ import {
 	Fractal,
 	type FractalCanvas,
 	type FractalDataset,
-	type Uniform,
-	Uniform1i,
-	Uniform2f,
 } from '../main/Fractal.ts';
 import { default as vertex } from './mandelbrot.vert?raw';
 import { default as fragment } from './mandelbrot.frag?raw';
 import { mandelbrot } from '@data/fractals.ts';
+import { Uniform1i } from '@opengl/main/Uniforms.ts';
+import { textureBitGl } from 'pixi.js';
+import { doc } from 'prettier';
 
 export interface MandelbrotDataset extends FractalDataset {
 	maxIterations: string;
@@ -26,33 +26,49 @@ export class MandelbrotFractal extends Fractal<MandelbrotDataset> {
 				['vertex', vertex],
 			],
 			[
-				new Uniform1i('uMaxIterations', () =>
-					parseInt(this.canvas?.dataset.maxIterations as string),
-				),
+				new Uniform1i('uMaxIterations', () => [
+					parseInt(
+						(document.getElementById('iterationsSlider') as HTMLInputElement)
+							.value as string,
+					),
+				]),
 			],
 		);
 	}
 
 	public override begin(canvas: FractalCanvas<MandelbrotDataset>) {
-		canvas.dataset.zoom = '2.5';
-		canvas.dataset.offsetX = '-0.5';
-		canvas.dataset.offsetY = '0';
-		canvas.dataset.maxIterations = '10000';
 		super.begin(canvas);
+
+		this.home();
 
 		if (this.context === null) throw 'context null';
 
-		this.newAttribute('aPosition');
-
-		this.newUniform('uMaxIterations');
+		this.newAttribute('aTriPosition'); // Posició dels vèrtexs dels triangles
 
 		this.buffer = this.context.createBuffer();
+
+		this.canvas?.addEventListener('click', (event: MouseEvent) => {
+			console.log('mouse screen pos', event.clientX, event.clientY);
+			console.log(
+				'mouse plane pos',
+				this.screenToPlane(event.clientX, event.clientY),
+			);
+		});
 	}
 
 	public override draw() {
 		if (this.context === null) throw 'context null';
 
 		super.draw();
+
+		document
+			.getElementById('iterationsSlider')!
+			.addEventListener('change', () => {
+				if (Date.now() - this.lastDraw > 200) {
+					this.draw();
+				}
+			});
+
 		if (this.canvas?.width === 0) throw 'canvas width 0';
 		if (!this.canvas?.dataset) throw 'canvas dataset not set';
 
@@ -60,12 +76,7 @@ export class MandelbrotFractal extends Fractal<MandelbrotDataset> {
 
 		this.context.bufferData(
 			this.context.ARRAY_BUFFER,
-			new Float32Array([
-				//Triangle esquerre
-				-1, 1, -1, -1, 1, 1,
-				//Triangle dret
-				-1, -1, 1, -1, 1, 1,
-			]),
+			new Float32Array([-1, 1, -1, -1, 1, 1, 1, -1]),
 			this.context.STATIC_DRAW,
 		);
 
@@ -73,7 +84,7 @@ export class MandelbrotFractal extends Fractal<MandelbrotDataset> {
 
 		this.context.bindVertexArray(vertArray);
 
-		const attribLoc = this.attributes.get('aPosition')!;
+		const attribLoc = this.attributes.get('aTriPosition')!;
 
 		this.context.enableVertexAttribArray(attribLoc);
 
@@ -86,18 +97,13 @@ export class MandelbrotFractal extends Fractal<MandelbrotDataset> {
 			0,
 		);
 
-		// TODO - Assignar uniforms des de la funció superior draw
-
-		console.log(
-			'width: ',
-			this.context.canvas.width,
-			'height: ',
-			this.context.canvas.height,
-		);
-
 		super.assignUniforms();
+		this.context.drawArrays(this.context.TRIANGLE_STRIP, 0, 4);
+	}
 
-		// 6 = 2 triangles x 3 punts
-		this.context.drawArrays(this.context.TRIANGLES, 0, 6);
+	public override home() {
+		this.canvas!.dataset.zoom = '0.006';
+		this.canvas!.dataset.posX = '0';
+		this.canvas!.dataset.posY = '0';
 	}
 }
