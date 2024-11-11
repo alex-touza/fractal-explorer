@@ -7,8 +7,6 @@ import { default as vertex } from './mandelbrot.vert?raw';
 import { default as fragment } from './mandelbrot.frag?raw';
 import { mandelbrot } from '@data/fractals.ts';
 import { Uniform1i } from '@opengl/main/Uniforms.ts';
-import { textureBitGl } from 'pixi.js';
-import { doc } from 'prettier';
 
 export interface MandelbrotDataset extends FractalDataset {
 	maxIterations: string;
