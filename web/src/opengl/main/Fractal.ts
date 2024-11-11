@@ -3,6 +3,7 @@ import type { FractalInfo } from '@data/fractal.ts';
 import { Uniform1f, Uniform2f, type Uniforms } from '@opengl/main/Uniforms.ts';
 import { DefaultAction } from '@data/types.ts';
 
+
 let displayWidth: number, displayHeight: number;
 
 export interface FractalDataset extends DOMStringMap {
@@ -26,7 +27,7 @@ export abstract class Fractal<Dataset extends FractalDataset = FractalDataset> {
 	public canvas: FractalCanvas<Dataset> | null = null;
 	public program: WebGLProgram | null = null;
 	public shaders: [keyof typeof shaderTypes, string][];
-	public lastDraw: number = -1;
+	protected lastDraw: number = -1;
 
 	protected uniforms: Uniforms[];
 
@@ -92,7 +93,6 @@ export abstract class Fractal<Dataset extends FractalDataset = FractalDataset> {
 
 	// https://webgl2fundamentals.org/webgl/lessons/webgl-resizing-the-canvas.html
 	protected resizeCanvas() {
-		console.log('resizeCanvas');
 		if (!this.canvas) throw 'canvas is null';
 
 		const needResize =
@@ -105,6 +105,8 @@ export abstract class Fractal<Dataset extends FractalDataset = FractalDataset> {
 		}
 
 		this.context!.viewport(0, 0, displayWidth, displayHeight);
+
+		console.log(this.canvas.width, this.canvas.height);
 
 		return needResize;
 	}
@@ -184,12 +186,13 @@ export abstract class Fractal<Dataset extends FractalDataset = FractalDataset> {
 				((this.canvas.height - y) / this.canvas.height - 0.5) * planeHeight,
 		);
 
-		requestAnimationFrame(() => this.draw());
+		this.frame()
 	}
 
 	public abstract home(): void;
 
 	public begin(canvas: FractalCanvas<Dataset>) {
+		console.log(canvas.width, canvas.height)
 		this.canvas = canvas;
 
 		this.context = this.canvas.getContext('webgl2')!;
@@ -211,7 +214,7 @@ export abstract class Fractal<Dataset extends FractalDataset = FractalDataset> {
 					parseFloat(this.canvas?.dataset.posY!) +
 						event.movementY * parseFloat(this.canvas?.dataset.zoom!),
 				);
-				requestAnimationFrame(() => this.draw());
+				this.frame()
 				console.log('moved');
 			}
 		});
@@ -236,7 +239,7 @@ export abstract class Fractal<Dataset extends FractalDataset = FractalDataset> {
 					break;
 				case DefaultAction.HOME:
 					this.home();
-					requestAnimationFrame(() => this.draw());
+					this.frame();
 			}
 		});
 
@@ -269,12 +272,29 @@ export abstract class Fractal<Dataset extends FractalDataset = FractalDataset> {
 
 	public draw() {
 		if (this.context === null) throw 'context null';
-		this.lastDraw = Date.now();
 		this.resizeCanvas();
 
 		this.context.clearColor(0, 0, 0, 0);
 		this.context.clear(this.context.COLOR_BUFFER_BIT);
 
 		this.context.useProgram(this.program);
+	}
+
+	public frame() {
+		requestAnimationFrame((timestamp: number) => {
+			let el = document.getElementById("fps")!
+			
+			let delta = (timestamp - this.lastDraw)/1000;
+			
+			if (delta < 1) {
+				el.innerText = (1 / (delta)).toFixed(1);
+			}
+			
+
+			this.lastDraw = timestamp;
+
+			this.draw();
+		})
+		
 	}
 }

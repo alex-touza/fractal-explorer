@@ -52,12 +52,6 @@ export class MandelbrotFractal extends Fractal<MandelbrotDataset> {
 				this.screenToPlane(event.clientX, event.clientY),
 			);
 		});
-	}
-
-	public override draw() {
-		if (this.context === null) throw 'context null';
-
-		super.draw();
 
 		document
 			.getElementById('iterationsSlider')!
@@ -66,6 +60,13 @@ export class MandelbrotFractal extends Fractal<MandelbrotDataset> {
 					this.draw();
 				}
 			});
+	}
+
+	public override draw() {
+		if (this.context === null) throw 'context null';
+
+		super.draw();
+
 
 		if (this.canvas?.width === 0) throw 'canvas width 0';
 		if (!this.canvas?.dataset) throw 'canvas dataset not set';
@@ -101,7 +102,7 @@ export class MandelbrotFractal extends Fractal<MandelbrotDataset> {
 
 	public override home() {
 		this.canvas!.dataset.zoom = '0.006';
-		this.canvas!.dataset.posX = '0';
+		this.canvas!.dataset.posX = '-0.5';
 		this.canvas!.dataset.posY = '0';
 	}
 }

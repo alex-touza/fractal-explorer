@@ -9,4 +9,4 @@ const canvas = document.getElementById(
 
 fractal.begin(canvas);
 
-requestAnimationFrame(() => fractal.draw());
+fractal.frame();

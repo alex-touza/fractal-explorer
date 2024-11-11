@@ -4,7 +4,7 @@
 
 @layer base {
     button {
-        @apply p-2 hover:bg-slate-800 transition active:bg-slate-700 rounded-md font-sans;
+        @apply p-2 hover:bg-slate-800/40 transition active:bg-slate-700/60 rounded-md font-sans;
     }
 
 }
