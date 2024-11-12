@@ -1,18 +1,10 @@
-import {
-	Fractal,
-	type FractalCanvas,
-	type FractalDataset,
-} from '../main/Fractal.ts';
+import { Fractal, type FractalCanvas } from '../Fractal.ts';
 import { default as vertex } from './mandelbrot.vert?raw';
 import { default as fragment } from './mandelbrot.frag?raw';
 import { mandelbrot } from '@data/fractals.ts';
-import { Uniform1i } from '@opengl/main/Uniforms.ts';
+import { Uniform1i } from '@opengl/Uniforms.ts';
 
-export interface MandelbrotDataset extends FractalDataset {
-	maxIterations: string;
-}
-
-export class MandelbrotFractal extends Fractal<MandelbrotDataset> {
+export class MandelbrotFractal extends Fractal {
 	private buffer: WebGLBuffer | null = null;
 
 	public constructor() {
@@ -34,7 +26,7 @@ export class MandelbrotFractal extends Fractal<MandelbrotDataset> {
 		);
 	}
 
-	public override begin(canvas: FractalCanvas<MandelbrotDataset>) {
+	public override begin(canvas: FractalCanvas) {
 		super.begin(canvas);
 
 		this.home();
@@ -66,7 +58,6 @@ export class MandelbrotFractal extends Fractal<MandelbrotDataset> {
 		if (this.context === null) throw 'context null';
 
 		super.draw();
-
 
 		if (this.canvas?.width === 0) throw 'canvas width 0';
 		if (!this.canvas?.dataset) throw 'canvas dataset not set';
@@ -101,8 +92,7 @@ export class MandelbrotFractal extends Fractal<MandelbrotDataset> {
 	}
 
 	public override home() {
-		this.canvas!.dataset.zoom = '0.006';
-		this.canvas!.dataset.posX = '-0.5';
-		this.canvas!.dataset.posY = '0';
+		this.uPosition.value = [-0.5, 0];
+		this.uPlaneWidth.value = [4];
 	}
 }

@@ -1,20 +1,27 @@
-import { type Fractal } from '@opengl/main/Fractal.ts';
+import { type Fractal } from '@opengl/Fractal.ts';
 
 type GLtypes = GLfloat | GLint;
 
 abstract class UniformBase<T extends [...GLtypes[]]> {
+	private values: T | [() => T];
 	public name: string;
-	public values: T | [() => T];
 	public location: WebGLUniformLocation | null = null;
+	public isRef: boolean;
 
 	constructor(name: string, ...values: T | [() => T]) {
 		this.name = name;
 		this.values = values;
+		this.isRef = typeof this.values[0] === 'function';
 	}
 
-	get value() {
+	get value(): T {
 		let value = this.values[0];
-		return typeof value === 'function' ? value() : value;
+		return this.isRef ? (value as () => T)() : (this.values as T);
+	}
+
+	set value(values: T) {
+		if (this.isRef) return;
+		this.values = values;
 	}
 
 	public locate(fractal: Fractal) {
@@ -57,6 +64,10 @@ export class Uniform2f extends UniformBase<[GLfloat, GLfloat]> {
 
 export class Uniform2i extends UniformBase<[GLfloat, GLfloat]> {
 	protected readonly func = (fractal: Fractal) => fractal.context!.uniform2i;
+}
+
+export class Uniform3f extends UniformBase<[GLfloat, GLfloat, GLfloat]> {
+	protected readonly func = (fractal: Fractal) => fractal.context!.uniform3f;
 }
 
 export type Uniforms = Uniform1f | Uniform1i | Uniform2f | Uniform2i;

@@ -7,7 +7,7 @@ import zoomOut from '/icons/zoom-out.svg?raw';
 import home from '/icons/home.svg?raw';
 import { DefaultAction } from '../data/types';
 import type { FractalInfo } from '../data/fractal';
-import { Fractal } from '../opengl/main/Fractal';
+import { Fractal } from '../opengl/Fractal';
 
 export const getStaticPaths = (() =>
 	fractals
@@ -62,9 +62,7 @@ console.log(fractalInfo);
 			{fractalInfo.name}
 		</h1>
 
-		<span id="fps" class="absolute right-0 top-0 text-slate-200">
-
-		</span>
+		<span id="fps" class="absolute right-0 top-0 text-slate-200"> </span>
 		<div class="floating-box absolute inset-y-0 left-0 w-48 p-2">
 			<button class="w-full rounded-b-none font-semibold" id="homeBtn"
 				>Pàgina principal

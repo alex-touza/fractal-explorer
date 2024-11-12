@@ -1,32 +1,27 @@
-import { shaderTypes } from '../shaderTypes.ts';
+import { shaderTypes } from './shaderTypes.ts';
 import type { FractalInfo } from '@data/fractal.ts';
-import { Uniform1f, Uniform2f, type Uniforms } from '@opengl/main/Uniforms.ts';
+import { Uniform1f, Uniform2f, type Uniforms } from '@opengl/Uniforms.ts';
 import { DefaultAction } from '@data/types.ts';
-
 
 let displayWidth: number, displayHeight: number;
 
-export interface FractalDataset extends DOMStringMap {
-	zoom: string;
-	posX: string;
-	posY: string;
-}
-
-export interface FractalCanvas<Dataset extends FractalDataset = FractalDataset>
-	extends HTMLCanvasElement {
-	dataset: Dataset;
-}
+export interface FractalCanvas extends HTMLCanvasElement {}
 
 const ZOOM_FACTOR = 3 / 4;
 
-export abstract class Fractal<Dataset extends FractalDataset = FractalDataset> {
+export abstract class Fractal {
 	public id: string;
 	public info: FractalInfo;
 
 	public context: WebGL2RenderingContext | null = null;
-	public canvas: FractalCanvas<Dataset> | null = null;
+	public canvas: FractalCanvas | null = null;
 	public program: WebGLProgram | null = null;
 	public shaders: [keyof typeof shaderTypes, string][];
+
+	public uResolution: Uniform2f;
+	public uPlaneWidth: Uniform1f;
+	public uPosition: Uniform2f;
+
 	protected lastDraw: number = -1;
 
 	protected uniforms: Uniforms[];
@@ -42,30 +37,36 @@ export abstract class Fractal<Dataset extends FractalDataset = FractalDataset> {
 		this.id = id;
 		this.info = info;
 		this.shaders = shaders;
+		this.uResolution = new Uniform2f('uResolution', () => [
+			this.context!.canvas.width,
+			this.context!.canvas.height,
+		]);
+		this.uPosition = new Uniform2f('uPosition', -0.5, 0);
+		this.uPlaneWidth = new Uniform1f('uPlaneWidth', 4);
 		this.uniforms = [
-			new Uniform2f('uResolution', () => [
-				this.context!.canvas.width,
-				this.context!.canvas.height,
-			]),
-			new Uniform1f('uZoom', () => [parseFloat(this.canvas?.dataset.zoom!)]),
-			new Uniform2f('uPosition', () => [
-				parseFloat(this.canvas?.dataset.posX!),
-				parseFloat(this.canvas?.dataset.posY!),
-			]),
+			this.uResolution,
+			this.uPlaneWidth,
+			this.uPosition,
+
 			...uniforms,
 		];
 	}
 
-	protected screenToPlane(x: number, y: number): [x: number, y: number] {
+	protected get planeSize(): [w: number, h: number] {
 		return [
-			(((x / this.canvas?.width!) * 2 - 1) *
-				(this.canvas?.width! * parseFloat(this.canvas?.dataset.zoom!))) /
-				2 +
-				parseFloat(this.canvas?.dataset.posX!),
-			(((y / this.canvas?.height!) * 2 - 1) *
-				(-this.canvas?.height! * parseFloat(this.canvas?.dataset.zoom!))) /
-				2 +
-				parseFloat(this.canvas?.dataset.posY!),
+			this.uPlaneWidth.value[0],
+			(this.uPlaneWidth.value[0] * this.canvas?.height!) / this.canvas?.width!,
+		];
+	}
+
+	protected screenToPlane(x: number, y: number): [x: number, y: number] {
+		const planeSize = this.planeSize;
+
+		return [
+			(((x / this.canvas?.width!) * 2 - 1) * planeSize[0]) / 2 +
+				this.uPosition.value[0],
+			(((y / this.canvas?.height!) * 2 - 1) * -planeSize[1]) / 2 +
+				this.uPosition.value[1],
 		];
 	}
 
@@ -159,40 +160,36 @@ export abstract class Fractal<Dataset extends FractalDataset = FractalDataset> {
 	public zoom(x: number, y: number, zoomIn: boolean) {
 		if (!this.canvas) return;
 
-		let dataset = this.canvas!.dataset;
-
+		/*
 		let currentZoom = parseFloat(dataset.zoom);
 		if ((!zoomIn && currentZoom > 0.005) || (zoomIn && currentZoom < 1e-8))
 			return;
-
+			*/
 		let zoomDelta = zoomIn ? ZOOM_FACTOR : 1 / ZOOM_FACTOR;
 
+		let currentPlaneSize = this.planeSize;
+
+		if (!zoomIn && this.uPlaneWidth.value[0] > 4) return;
+
 		const coords = this.screenToPlane(x, y);
-		const newZoom = zoomDelta * currentZoom;
+		//const newZoom = zoomDelta * currentZoom;
 
-		dataset.zoom = String(newZoom);
+		//dataset.zoom = String(newZoom);
 
-		let planeWidth = this.canvas.width * newZoom;
-		let planeHeight = this.canvas.height * newZoom;
+		this.uPlaneWidth.value = [currentPlaneSize[0] * zoomDelta];
 
-		console.log(planeHeight, coords);
-
-		dataset.posX = String(
-			coords[0] - (x / this.canvas.width - 0.5) * planeWidth,
-		);
-
-		dataset.posY = String(
+		this.uPosition.value = [
+			coords[0] - (x / this.canvas.width - 0.5) * this.uPlaneWidth.value[0],
 			coords[1] -
-				((this.canvas.height - y) / this.canvas.height - 0.5) * planeHeight,
-		);
+				((this.canvas.height - y) / this.canvas.height - 0.5) *
+					this.planeSize[1],
+		];
 
-		this.frame()
+		this.frame();
 	}
 
-	public abstract home(): void;
-
-	public begin(canvas: FractalCanvas<Dataset>) {
-		console.log(canvas.width, canvas.height)
+	public begin(canvas: FractalCanvas) {
+		console.log(canvas.width, canvas.height);
 		this.canvas = canvas;
 
 		this.context = this.canvas.getContext('webgl2')!;
@@ -206,15 +203,14 @@ export abstract class Fractal<Dataset extends FractalDataset = FractalDataset> {
 
 		this.canvas.addEventListener('mousemove', (event) => {
 			if (event.buttons) {
-				this.canvas!.dataset.posX = String(
-					parseFloat(this.canvas?.dataset.posX!) -
-						event.movementX * parseFloat(this.canvas?.dataset.zoom!),
-				);
-				this.canvas!.dataset.posY = String(
-					parseFloat(this.canvas?.dataset.posY!) +
-						event.movementY * parseFloat(this.canvas?.dataset.zoom!),
-				);
-				this.frame()
+				this.uPosition.value = [
+					this.uPosition.value[0] -
+						(event.movementX * this.uPlaneWidth.value[0]) / this.canvas?.width!,
+					this.uPosition.value[1] -
+						(-event.movementY * this.uPlaneWidth.value[0]) /
+							this.canvas?.width!,
+				];
+				this.frame();
 				console.log('moved');
 			}
 		});
@@ -224,8 +220,8 @@ export abstract class Fractal<Dataset extends FractalDataset = FractalDataset> {
 		resizeObserver.observe(canvas, { box: 'content-box' });
 
 		window.addEventListener('fractal-interact', (event) => {
-			console.log(event);
 			let action = parseInt((event as CustomEvent).detail) as DefaultAction;
+			console.log(action);
 			let center = [this.canvas?.width! / 2, this.canvas?.height! / 2] as [
 				number,
 				number,
@@ -282,19 +278,19 @@ export abstract class Fractal<Dataset extends FractalDataset = FractalDataset> {
 
 	public frame() {
 		requestAnimationFrame((timestamp: number) => {
-			let el = document.getElementById("fps")!
-			
-			let delta = (timestamp - this.lastDraw)/1000;
-			
+			let el = document.getElementById('fps')!;
+
+			let delta = (timestamp - this.lastDraw) / 1000;
+
 			if (delta < 1) {
-				el.innerText = (1 / (delta)).toFixed(1);
+				el.innerText = (1 / delta).toFixed(1);
 			}
-			
 
 			this.lastDraw = timestamp;
 
 			this.draw();
-		})
-		
+		});
 	}
+
+	public abstract home(): void;
 }

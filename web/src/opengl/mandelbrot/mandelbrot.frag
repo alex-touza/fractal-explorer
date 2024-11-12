@@ -3,10 +3,9 @@
 precision highp float;
 
 uniform vec2 uResolution;
-uniform vec2 uPosition;
 // Control de la posició en el pla complex
-uniform float uZoom;
-uniform vec2 uOffset;
+uniform float uPlaneWidth;
+uniform vec2 uPosition;
 
 
 uniform int uMaxIterations;
@@ -23,7 +22,7 @@ vec3 hsv2rgb(vec3 c)
 void main() {
     //vec2 c = (gl_FragCoord.xy / uResolution - vec2(0.5)) * vec2((uResolution.x / uResolution.y) * uZoom, uZoom) + uOffset;
 
-    vec2 planeSize = uResolution * uZoom;
+    vec2 planeSize = vec2(uPlaneWidth, uPlaneWidth * uResolution.y / uResolution.x);
 
 
     vec2 c = mix(

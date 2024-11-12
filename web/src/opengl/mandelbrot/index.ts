@@ -1,5 +1,5 @@
 import { MandelbrotFractal, type MandelbrotDataset } from './mandelbrot.ts';
-import { type FractalCanvas } from '../main/Fractal';
+import { type FractalCanvas } from '../Fractal.ts';
 
 const fractal = new MandelbrotFractal();
 
