@@ -52,6 +52,78 @@ export abstract class Fractal {
 		];
 	}
 
+	public begin(canvas: FractalCanvas) {
+		console.log(canvas.width, canvas.height);
+		this.canvas = canvas;
+
+		this.context = this.canvas.getContext('webgl2')!;
+		this.program = this.context!.createProgram();
+
+		if (!this.program || !this.context) throw 'program or context null';
+
+		this.canvas.addEventListener('wheel', (event) => {
+			this.zoom(event.clientX, event.clientY, event.deltaY < 0);
+		});
+
+		this.canvas.addEventListener('mousemove', (event) => {
+			if (event.buttons) {
+				this.uPosition.value = [
+					this.uPosition.value[0] -
+						(event.movementX * this.uPlaneWidth.value[0]) / this.canvas?.width!,
+					this.uPosition.value[1] -
+						(-event.movementY * this.uPlaneWidth.value[0]) /
+							this.canvas?.width!,
+				];
+				this.frame();
+				console.log('moved');
+			}
+		});
+
+		const resizeObserver = new ResizeObserver(this.onResize.bind(this));
+
+		resizeObserver.observe(canvas, { box: 'content-box' });
+
+		window.addEventListener('fractal-interact', (event) => {
+			let action = parseInt((event as CustomEvent).detail) as DefaultAction;
+			console.log(action);
+			let center = [this.canvas?.width! / 2, this.canvas?.height! / 2] as [
+				number,
+				number,
+			];
+			switch (action) {
+				case DefaultAction.ZOOM_IN:
+					this.zoom(...center, true);
+					break;
+				case DefaultAction.ZOOM_OUT:
+					this.zoom(...center, false);
+					break;
+				case DefaultAction.HOME:
+					this.home();
+					this.frame();
+			}
+		});
+
+		for (let [type, source] of this.shaders) {
+			let shader = this.loadShader(type, source);
+			if (!shader) throw 'no shader';
+			this.context!.attachShader(this.program!, shader);
+		}
+
+		this.context.linkProgram(this.program);
+
+		if (
+			!this.context.getProgramParameter(this.program, this.context.LINK_STATUS)
+		) {
+			alert(
+				`An error occurred linking the program:  ${this.context.getProgramInfoLog(this.program)}`,
+			);
+			this.context.deleteProgram(this.program);
+		}
+		for (let uniform of this.uniforms) {
+			uniform.locate(this);
+		}
+	}
+
 	protected get planeSize(): [w: number, h: number] {
 		return [
 			this.uPlaneWidth.value[0],
@@ -186,78 +258,6 @@ export abstract class Fractal {
 		];
 
 		this.frame();
-	}
-
-	public begin(canvas: FractalCanvas) {
-		console.log(canvas.width, canvas.height);
-		this.canvas = canvas;
-
-		this.context = this.canvas.getContext('webgl2')!;
-		this.program = this.context!.createProgram();
-
-		if (!this.program || !this.context) throw 'program or context null';
-
-		this.canvas.addEventListener('wheel', (event) => {
-			this.zoom(event.clientX, event.clientY, event.deltaY < 0);
-		});
-
-		this.canvas.addEventListener('mousemove', (event) => {
-			if (event.buttons) {
-				this.uPosition.value = [
-					this.uPosition.value[0] -
-						(event.movementX * this.uPlaneWidth.value[0]) / this.canvas?.width!,
-					this.uPosition.value[1] -
-						(-event.movementY * this.uPlaneWidth.value[0]) /
-							this.canvas?.width!,
-				];
-				this.frame();
-				console.log('moved');
-			}
-		});
-
-		const resizeObserver = new ResizeObserver(this.onResize.bind(this));
-
-		resizeObserver.observe(canvas, { box: 'content-box' });
-
-		window.addEventListener('fractal-interact', (event) => {
-			let action = parseInt((event as CustomEvent).detail) as DefaultAction;
-			console.log(action);
-			let center = [this.canvas?.width! / 2, this.canvas?.height! / 2] as [
-				number,
-				number,
-			];
-			switch (action) {
-				case DefaultAction.ZOOM_IN:
-					this.zoom(...center, true);
-					break;
-				case DefaultAction.ZOOM_OUT:
-					this.zoom(...center, false);
-					break;
-				case DefaultAction.HOME:
-					this.home();
-					this.frame();
-			}
-		});
-
-		for (let [type, source] of this.shaders) {
-			let shader = this.loadShader(type, source);
-			if (!shader) throw 'no shader';
-			this.context!.attachShader(this.program!, shader);
-		}
-
-		this.context.linkProgram(this.program);
-
-		if (
-			!this.context.getProgramParameter(this.program, this.context.LINK_STATUS)
-		) {
-			alert(
-				`An error occurred linking the program:  ${this.context.getProgramInfoLog(this.program)}`,
-			);
-			this.context.deleteProgram(this.program);
-		}
-		for (let uniform of this.uniforms) {
-			uniform.locate(this);
-		}
 	}
 
 	protected assignUniforms() {
