@@ -2,7 +2,7 @@ import { Fractal, type FractalCanvas } from '../Fractal.ts';
 import { default as vertex } from './mandelbrot.vert?raw';
 import { default as fragment } from './mandelbrot.frag?raw';
 import { mandelbrot } from '@data/fractals.ts';
-import { Uniform1i } from '@opengl/Uniforms.ts';
+import { Uniform1f, Uniform1i } from '@opengl/Uniforms.ts';
 
 export class MandelbrotFractal extends Fractal {
 	private buffer: WebGLBuffer | null = null;
@@ -22,6 +22,7 @@ export class MandelbrotFractal extends Fractal {
 							.value as string,
 					),
 				]),
+				new Uniform1f('uColor', 0.1),
 			],
 		);
 	}

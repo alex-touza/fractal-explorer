@@ -70,4 +70,9 @@ export class Uniform3f extends UniformBase<[GLfloat, GLfloat, GLfloat]> {
 	protected readonly func = (fractal: Fractal) => fractal.context!.uniform3f;
 }
 
-export type Uniforms = Uniform1f | Uniform1i | Uniform2f | Uniform2i;
+export type Uniforms =
+	| Uniform1f
+	| Uniform1i
+	| Uniform2f
+	| Uniform2i
+	| Uniform3f;

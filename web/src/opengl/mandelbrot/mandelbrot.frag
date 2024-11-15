@@ -7,6 +7,7 @@ uniform vec2 uResolution;
 uniform float uPlaneWidth;
 uniform vec2 uPosition;
 
+uniform float uColor;
 
 uniform int uMaxIterations;
 
@@ -42,7 +43,7 @@ void main() {
        z = vec2(z.x * z.x - z.y * z.y, 2.0 * z.x * z.y) + c;
 
         if (dot(z, z) > 100.0) {
-            outColor = vec4(hsv2rgb(vec3(float(iterations) / 200.0 + 5.0, 1, 0.68)), 1.0);
+            outColor = vec4(hsv2rgb(vec3(float(iterations) / 100.0 + uColor, 1, 0.68)), 1.0);
             return;
         }
     }
