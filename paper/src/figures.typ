@@ -248,7 +248,7 @@
     }
   }
 
-#let koch(n, only-one: false, size: 12, number: false) = {
+#let koch(n, only-one: false, size: 12, number: false, from: 1) = {
   canvas({
     import draw: *
 
@@ -258,12 +258,13 @@
     seg és una 2-tupla de parelles que representa
     el segment en què s'ha de dibuixar.
     */
-    
 
-    for i in (if only-one {range(n, n+1)} else {range(1, n+1)}) {
-      koch-rec(((0, -i*4), (size, -i*4)), i, 1, number: number)
+    let fact = size * 2/5
 
-      content((-1, -i*4), [$K_#(i - 1)$])
+    for i in (if only-one {range(n, n+1)} else {range(from, n+1)}) {
+      koch-rec(((0, -i*fact), (size, -i*fact)), i, 1, number: number)
+
+      content((-1, -i*fact), [$K_#(i - 1)$])
     }
     
   })

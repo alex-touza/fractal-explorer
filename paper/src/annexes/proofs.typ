@@ -96,7 +96,7 @@ Per reduir la llargada del cos principal del treball, es presenten aquí demostr
   f'(x) = sum^n_(i=1) r_i^s ln(r_i)
   $
 
-  Com que $0 < r_i < 1$, el logaritme sempre serà negatiu i per tant la derivada també, així que $f$ és decreixent per tot $s in [0, +infinity)$. Així que si sempre decreix, només existirà una $s$ tal que $sum^n_(i=1) r_i^s = 1$.
+  Com que $0 < r_i < 1$, el logaritme sempre serà negatiu i per tant la derivada també, així que $f$ és decreixent per tot $s in (0, n)$. Així que si sempre decreix, només existirà una $s$ tal que $sum^n_(i=1) r_i^s = 1$.
 ]
 
 #explanation[matrius en geometria analítica][

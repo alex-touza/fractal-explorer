@@ -237,7 +237,7 @@ El terme _fractal_ (que en català és un mot femení), com s'ha mostrat, va ser
 
 - *Irregularitat geomètrica.* Alguns objectes fractals no es poden descriure completament a partir de la geometria euclidiana convencional, si no és amb una definició recursiva.
 
-- *Autosimilitud exacta o parcial.* Com a conseqüència de la propietat anterior, moltes fractals es contenen a si mateixes, és a dir, que si desenvolupem o representem la seva definició podem trobar còpies de si mateix. Això és evident en el cas de definicions clarament recursives, com el triangle de Sierpinski, però també es troba en fractals definides de formes diferents, com el conjunt de Mandelbrot, on aquesta autosimilitud és absolutament inesperada.
+- *Autosimilitud exacta o parcial.* Com a conseqüència de la propietat anterior, moltes fractals es contenen a si mateixes, és a dir, que si desenvolupem o representem la seva definició podem trobar còpies de si mateixa. Això és evident en el cas de definicions clarament recursives, com el triangle de Sierpinski, però també es troba en fractals definides de formes diferents, com el conjunt de Mandelbrot, on aquesta autosimilitud és absolutament inesperada.
 
   També hom pot obtenir autosimilitud estadística, que no es tracta d'una semblança geomètrica, sinó en les seves propietats. Un exemple clàssic és la silueta d'una costa: cada porció de l'objecte, sigui gran o petita, té una rugositat semblant a la resta encara que tingui forma diferent.
 

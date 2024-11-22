@@ -8,9 +8,10 @@
 
 En aquest últim capítol, s'exposaran breument algunes tècniques de generació de fractals mitjançant programes informàtics. Primer, estudiarem la generació de fractals simples, i després, la generació de fractals més complexes.
 
-//== Generació de fractals simples
+== Generació de fractals simples
 
-== Algorismes recursius
+//== Algorismes recursius
+=== Recursivitat
 La tècnica més emprada per generar fractals simples és la recursivitat, ja que la pròpia definició de moltes d'elles la fa servir. Les tres fractals generades íntegrament en aquesta memòria ---el conjunt de Cantor (@fig-cantor), el triangle de Sierpinski (@fig-sierpinski) i la corba de Koch (@fig-koch-iteracions)--- fan servir recursivitat.
 
 En informàtica, la recursivitat distingeix dos conceptes: el _cas base_, que és un valor fix conegut per a algun valor de variable independent, i el _cas recursiu_, que es defineix fent ús del propi algoritme. L'exemple clàssic és la computació del factorial, però aquí en mostrarem un de més interessant: la computació dels nombres combinatoris. Pel triangle de Pascal o de Tartaglia, tenim la següent relació de recurrència (que és el cas recursiu) $ vec(n, k) = vec(n-1, k-1) + vec(n-1, k) $
@@ -54,7 +55,8 @@ Per exemple, aquest és el pseudocodi per al triangle de Sierpinski, que començ
   + *end*
 ]
 
-== Aplicació de geometria analítica
+//== Aplicació de geometria analítica
+=== Geometria analítica
 
 Tant la construcció intuïtiva com l'algoritme de generació del triangle de Sierpinski són bastant trivials. En canvi, altres fractals, com la corba de Koch, tenen una implementació més complicada tot i tenir una construcció geomètrica simple. Una forma de traduir els passos d'alt nivell de la construcció a un altre algoritme que pugui entendre l'ordinador, és fer servir la geometria analítica. Convertint cada pas a una operació vectorial o matricial es pot escriure més còmodament el codi per a la fractal.
 
@@ -83,7 +85,7 @@ Es mostra aquí el pseudocodi per la corba de Koch:
       + koch $1, b, i$
     + *end*
 ]
-
+/*
 == Gràfics _turtle_
 
 === Funcionament
@@ -99,7 +101,7 @@ Es mostra aquí el pseudocodi per la corba de Koch:
 ==== Exemple senzill
 
 ===
-
+*/
 /*
 === Punt  mòbil
 Una tècnica útil per generar alguns fractals és el punt mòbil. Consisteix en mantenir una posició per saber on començar a dibuixar la fractal. L'avantatge d'aquest mètode és que és ben senzill d'aplicar sense recursivitat, però és només útil per a fractals molt simples. Vegem un exemple.
@@ -143,7 +145,7 @@ $
   ]
 ]
 */
-== Generació de fractals no lineals
+== Generació de fractals complexos //no lineals
 
 Fins ara hem mostrat només fractals estrictament geomètrics. En fractals més complexes#footnote[_No pun intended._], com els conjunts de Julia, l'algoritme té un enfocament bastant diferent per la seva naturalesa. S'ha d'executar un algorisme per a cadascun del punts del pla, cosa que és molt costosa.
 
@@ -151,3 +153,74 @@ Fins ara hem mostrat només fractals estrictament geomètrics. En fractals més 
 Per desgràcia, no existeix cap forma molt bona d'optimitzar aquest procés. El que sí que es pot fer és escollir un llenguatge ràpid. Per a la visualització en dues i tres dimensions, una opció molt popular és OpenGL2, que executa el codi a la targeta gràfica directament. Aquest llenguatge és molt complicat, però assegura un rendiment immillorable.
 
 Durant aquest projecte, de forma paral·lela a l'estudi matemàtic, s'ha iniciat la creació d'un programa d'aquestes característiques per generar els conjunts de Julia. S'espera poder completar-lo al llarg de les properes setmanes.
+/*
+
+=== Sistema de coordenades
+
+En aquest programa, cooperen dos sistemes de coordenades diferents: el de JavaScript (_screen space_), que situa el punt $(0, 0)$ a dalt a l'esquerra i el punt a baix a la dreta és $(w, h)$, on $w$ i $h$ és la resolució de la pantalla, i el de OpenGl (_clip space_), que situa el punt $(0, 0)$ al centre.#footnote[El _clip space_ també inclou els components $z$, la profunditat, i $w$, la perspectiva, però com que el conjunt de Mandelbrot és pla no ens interessen.] Ens hem d'assegurar  que, en interactuar amb el programa (moure's pel pla i ampliar-lo), les transformacions entre aquests dos sistemes siguin fetes correctament.
+
+/* El pla complex a partir del qual es genera el conjunt de Mandelbrot l'equivaldrem al _clip space_ de OpenGL, de manera que entre aquests dos sistemes de coordenades no fem cap conversió. Ara bé, per*/
+
+Considerem les variables d'estat _zoom_, _posX_ i _posY_. Les variables _posX_ i _posY_ es refereixen al centre al voltant del qual s'itera sobre la funció complexa. És a dir, $z = (0, 0)$ correspon al píxel $C(italic("posX"), italic("posY"))$. Amb la variable _zoom_, qualsevol punt que es mostra correspon a l'expressió $arrow(p') = arrow(c) + italic("zoom") dot arrow(p)$ on $arrow(p)$ és el vector posició del píxel. El conjunt de Mandelbrot
+#figure(caption: "a")[
+  #canvas({
+    import draw: *
+
+    set-style(
+      mark: (fill: black, scale: 2),
+      stroke: (thickness: 0.4pt, cap: "round"),
+      angle: (
+        radius: 0.3,
+        label-radius: .22,
+        fill: green.lighten(80%),
+        stroke: (paint: green.darken(50%))
+      ),
+      content: (padding: 1pt)
+    )
+  
+    grid((-3, -3), (3, 3), step: 0.2, stroke: gray + 0.2pt)
+
+    circle((0, 0), radius: 0.05, fill: black)
+    circle((3, 3), radius: 0.05, fill: black)
+    content((0.2, 0.2), [$C$])
+    content((3.2, 3.2), [$P$])
+
+    line((-3, -3.5), (3, -3.5), mark: (start: "stealth", end: "stealth"))
+    line((-3.5, -3), (-3.5, 3), mark: (start: "stealth", end: "stealth"))
+    content((0, -4), [Amplada])
+    content((-4.5, 0), [Alçada])
+    
+    content((4.5, 0), text(rgb("#0000"))[Alçada])
+  })
+]
+
+---------
+
+L'amplada i l'alçada de la part del pla complex mostrat es multiplica per $2 slash 3$ si s'amplia i es multiplica per la inversa si es redueix.
+
+A l'algorisme també es fan servir les constants mida de la pantalla $arrow(m) = (m_1, m_2)$, on $m_1$ és l'amplada i $m_2$ l'alçada, i el factor d'ampliació $alpha$.
+
+#pseudocode-list[
+  + *algorithm* zoom *is*
+    + *input* posició centre $arr(p)$, zoom $lambda$, posició cursor $arr(a)$, quantitat desplaçament $delta$
+    + *output* nova posició del centre $arr(p')$, nou zoom $lambda'$
+    + mida pla actual $arrow(n) := lambda dot arrow(m)$
+    + nou zoom $lambda' := lambda dot alpha$
+    /*
+    + *if* $delta > 0$ *else*
+      + mida pla nou $arrow(n') := arrow(n) dot alpha$
+    + *else*
+      + mida pla nou $arrow(n') := arrow(n) med slash med alpha$
+    + *end*
+    */
+    + #comment([Situem el centre del pla $(x', y')$ a partir de la posició del cursor])
+    + posició horitzontal cursor al pla $c_1 := lambda dot a_1 - n_1 slash 2$
+    + posició vertical cursor al pla $c_2 := lambda dot (m_2 - a_2 )- n_2 slash 2$
+    + 
+    + *if* $i$ *is* 0 *then*
+  ]
+
+  /*
+  simplificar i canviar a expressió matemàtica
+  */
+=== Algorisme 

@@ -8,3 +8,8 @@
 #let hausdorff = $cal(H)^s (A)$
 
 
+#let comment(c) = {
+  set text(black.lighten(20%))
+  $slash slash med$
+  c
+}

@@ -112,9 +112,9 @@ A continuació, es presenten les definicions matemàtiques utilitzades en aquest
 
 #def[Ordre][
   Donada una col·lecció de conjunts $cal(F)$ en un espai mètric $(M, d)$ (@def-espai-mètric), el seu _ordre_ és el major nombre de conjunts que se superposen en un sol punt. Formalment, l'ordre és l'enter més petit $k$ tal que cap punt en $M$ pertany a més de $k+1$ conjunts en $cal(F)$ a la vegada.
-
+/*
   on l'operador $abs(Y)$ indica la cardinalitat del conjunt, és a dir, el nombre d'elements.
-] <def-ordre>
+*/] <def-ordre>
 
 
 #def[Refinament][
@@ -932,11 +932,11 @@ $
 z_(n+1) = z_n^2 + c
 $
 
-Donat un valor de $c$, per a cada punt del pla complex $z = x i + y$ on $i = sqrt(-1)$, calculem $z_(n+1)$ recursivament. Si $lim_(n->+infinity) z_n = +infinity$, aleshores el punt no pertany al conjunt de Julia. Si el límit convergeix a un valor finit, aleshores sí que hi pertany.
+Donat un valor de $c$, per a cada punt del pla complex $z = x i + y$ on $i = sqrt(-1)$, calculem $z_(n+1)$ recursivament començant amb $z_0=z$. Si $lim_(n->+infinity) z_n = +infinity$, aleshores el punt no pertany al conjunt de Julia. Si el límit convergeix a un valor finit, aleshores sí que hi pertany.
 
 ==== Conjunt de Mandelbrot
 
-El _conjunt de Mandelbrot_ és el conjunt de Julia per a $c = z_0$. És el fractal més popular, ja que s'hi poden trobar un munt de formes, fins i tot a si mateix---és auto-similar.
+El _conjunt de Mandelbrot_ és el conjunt de Julia per a $c = z$ i $z_0 = 0$. És el fractal més popular, ja que s'hi poden trobar un munt de formes, fins i tot a si mateix---és auto-similar.
 
 === Fractal de Newton
 
