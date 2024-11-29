@@ -1,41 +1,7 @@
 {
-  "extends": "astro/tsconfigs/strictest",
-  "compilerOptions": {
-    "module": "ES2020",
-    "moduleResolution": "Node",
-    "baseUrl": ".",
-    "paths": {
-      "@components/*": [
-        "src/components/*"
-      ],
-      "@data/*": [
-        "src/data/*"
-      ],
-      "@layouts/*": [
-        "src/layouts/*"
-      ],
-      "@pages/*": [
-        "src/pages/*"
-      ],
-      "@style/*": [
-        "src/style/*"
-      ],
-      "@opengl/*": [
-        "src/opengl/*"
-      ],
-      "@/*": [
-        "src/*"
-      ]
-    },
-    "plugins": [
-      {
-        "name": "@astrojs/ts-plugin"
-      }
-    ],
-    "jsx": "react-jsx",
-    "jsxImportSource": "react"
-  },
-  "include": [
-    "src"
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
   ]
 }
