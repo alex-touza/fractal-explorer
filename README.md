@@ -14,6 +14,16 @@ As of December 2024, the project has been successfully submitted to the professo
 
 The author, however, isn't completely satisfied with the priject. Over the following months, the theoretical study will be extended and the web app will be worked on further.
 
+## Methodology
+
+The paper and the presentation use Typst, a powerful typesetting system (better than LaTeX).
+
+The web technologies used are listed here.
+
+- Astro + Vite (to be replaced by a bare Vite stack)
+- TypeScript
+- WebGL
+
 ## Development
 
 It is recommended to use IntelliJ IDEA to open the whole project. Other IDEs may be used to open each module.
