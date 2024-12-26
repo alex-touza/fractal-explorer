@@ -12,7 +12,7 @@ module) and the presentation ([`presentation`](./presentation) module), both in 
 
 As of December 2024, the project has been successfully submitted to the professors. It has received the maximum grade.
 
-The author, however, isn't completely satisfied with the priject. Over the following months, the theoretical study will be extended and the web app will be worked on further.
+The author, however, isn't completely satisfied with the project. Over the following months, the theoretical study will be extended and the web app will be worked on further.
 
 ## Methodology
 
