@@ -7,7 +7,7 @@ const { fractal } = Astro.props;
 ---
 
 <a
-	href={fractal?.id ? `/fractals/${fractal.id}` : '#'}
+	href={fractal?.id ? `/fractal-explorer/fractals/${fractal.id}` : '#'}
 	class="group flex w-full cursor-pointer flex-col rounded border-2 bg-primary-800 shadow-2xl transition hover:bg-primary-600 hover:shadow-sm active:bg-primary-900"
 >
 	<div class="h-48 w-full flex-none overflow-hidden border-b-2 shadow-inner">
